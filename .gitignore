@@ -1,0 +1,42 @@
+# Created by GitHub's Swift template, with additions for the Marko project.
+
+## Project-specific additions
+# --- SENSITIVE FILES ---
+# Never commit the Firebase configuration file. This is the most important rule.
+GoogleService-Info.plist
+
+## Swift Package Manager
+.build/
+.swiftpm/
+
+## CocoaPods
+# Pods/       # (keep commented if you want to commit Pods/)
+!Podfile.lock
+
+## Carthage
+Carthage/Build/
+
+## Accidental File Uploads
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+## Build generated
+build/
+DerivedData/
+*.ipa
+*.dSYM
+
+## User-specific files
+*.xcodeproj/project.xcworkspace/
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcshareddata/
+*.xccheckout
+
+## Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# End of .gitignore
