@@ -12,6 +12,9 @@
 		FA30CE6B2E5531020053783F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA30CE6A2E5531020053783F /* Assets.xcassets */; };
 		FA30CE6E2E5531020053783F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA30CE6C2E5531020053783F /* LaunchScreen.storyboard */; };
 		FA30CE7B2E55317C0053783F /* TeacherListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA30CE7A2E55317C0053783F /* TeacherListVC.swift */; };
+		FA4EF4632E5FC25500A232A4 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4EF4622E5FC25500A232A4 /* HomeCoordinator.swift */; };
+		FA7A51A92E5E74A800CF9A31 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A51A82E5E74A800CF9A31 /* MainCoordinator.swift */; };
+		FA7A51AC2E5E74BB00CF9A31 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A51AB2E5E74BB00CF9A31 /* CoordinatorProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		FA30CE6D2E5531020053783F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FA30CE6F2E5531020053783F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA30CE7A2E55317C0053783F /* TeacherListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherListVC.swift; sourceTree = "<group>"; };
+		FA4EF4622E5FC25500A232A4 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		FA7A51A82E5E74A800CF9A31 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		FA7A51AB2E5E74BB00CF9A31 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +60,113 @@
 		FA30CE602E5530FD0053783F /* Marko */ = {
 			isa = PBXGroup;
 			children = (
+				FA7A51A22E5E73C600CF9A31 /* Resources */,
+				FA7A51A12E5E73B700CF9A31 /* Extensions */,
+				FA7A51A32E5E73FD00CF9A31 /* Models */,
+				FA7A51A02E5E73A500CF9A31 /* Services */,
+				FA7A519F2E5E738000CF9A31 /* Repositories */,
+				FA7A519E2E5E735E00CF9A31 /* Features */,
+				FA7A519D2E5E734B00CF9A31 /* Coordinators */,
+				FA93DDB92E5E69BC00061C9B /* Application */,
+			);
+			path = Marko;
+			sourceTree = "<group>";
+		};
+		FA7A519D2E5E734B00CF9A31 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				FA7A51A82E5E74A800CF9A31 /* MainCoordinator.swift */,
+				FA7A51AB2E5E74BB00CF9A31 /* CoordinatorProtocol.swift */,
+				FA4EF4622E5FC25500A232A4 /* HomeCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		FA7A519E2E5E735E00CF9A31 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				FA7A51A72E5E747200CF9A31 /* Account */,
+				FA7A51A62E5E746400CF9A31 /* Lessons */,
+				FA7A51A52E5E745000CF9A31 /* TeacherDetail */,
+				FA7A51A42E5E743500CF9A31 /* Home */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		FA7A519F2E5E738000CF9A31 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		FA7A51A02E5E73A500CF9A31 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		FA7A51A12E5E73B700CF9A31 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		FA7A51A22E5E73C600CF9A31 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FA30CE6A2E5531020053783F /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		FA7A51A32E5E73FD00CF9A31 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FA7A51A42E5E743500CF9A31 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				FA30CE7A2E55317C0053783F /* TeacherListVC.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		FA7A51A52E5E745000CF9A31 /* TeacherDetail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TeacherDetail;
+			sourceTree = "<group>";
+		};
+		FA7A51A62E5E746400CF9A31 /* Lessons */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Lessons;
+			sourceTree = "<group>";
+		};
+		FA7A51A72E5E747200CF9A31 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
+		FA93DDB92E5E69BC00061C9B /* Application */ = {
+			isa = PBXGroup;
+			children = (
 				FA30CE612E5530FD0053783F /* AppDelegate.swift */,
 				FA30CE632E5530FD0053783F /* SceneDelegate.swift */,
-				FA30CE7A2E55317C0053783F /* TeacherListVC.swift */,
-				FA30CE6A2E5531020053783F /* Assets.xcassets */,
 				FA30CE6C2E5531020053783F /* LaunchScreen.storyboard */,
 				FA30CE6F2E5531020053783F /* Info.plist */,
 			);
-			path = Marko;
+			path = Application;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -134,8 +239,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA30CE622E5530FD0053783F /* AppDelegate.swift in Sources */,
+				FA7A51A92E5E74A800CF9A31 /* MainCoordinator.swift in Sources */,
+				FA7A51AC2E5E74BB00CF9A31 /* CoordinatorProtocol.swift in Sources */,
 				FA30CE642E5530FD0053783F /* SceneDelegate.swift in Sources */,
 				FA30CE7B2E55317C0053783F /* TeacherListVC.swift in Sources */,
+				FA4EF4632E5FC25500A232A4 /* HomeCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,12 +384,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N89V434NF8;
-				INFOPLIST_FILE = Marko/Info.plist;
+				INFOPLIST_FILE = Marko/Application/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yashchenko.Marko;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yashchenko.Marko-refined";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -295,12 +403,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N89V434NF8;
-				INFOPLIST_FILE = Marko/Info.plist;
+				INFOPLIST_FILE = Marko/Application/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yashchenko.Marko;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yashchenko.Marko-refined";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
