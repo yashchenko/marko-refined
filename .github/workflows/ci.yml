@@ -12,23 +12,21 @@ on:
 
 jobs:
   build:
-    # Use the latest stable macOS runner
     runs-on: macos-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Select the oldest available STABLE Xcode version from the runner's list.
-      # As of the error log, '16.0' is a good choice.
       - name: Select Xcode version
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: '16.0'
           
-      # Build the project. We will address any code compatibility issues next.
+      # --- CORRECTED BUILD COMMAND ---
+      # Use the .xcodeproj because CocoaPods is not yet installed.
       - name: Build project
         run: |
-          xcodebuild build -workspace Marko.xcworkspace \
+          xcodebuild build -project Marko/Marko.xcodeproj \
                      -scheme Marko \
                      -destination 'platform=iOS Simulator,name=iPhone 15,OS=18.0'
