@@ -23,11 +23,10 @@ jobs:
         with:
           xcode-version: '16.0'
 
-      # --- CORRECTED BUILD COMMAND ---
-      # Build using the .xcodeproj at the repo root
+      # --- BUILD COMMAND ---
       - name: Build project
         run: |
           xcodebuild build \
             -project Marko.xcodeproj \
             -scheme Marko \
-            -destination 'platform=iOS Simulator,name=iPhone 15,OS=18.0'
+            -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.0'
