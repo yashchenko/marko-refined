@@ -22,11 +22,12 @@ jobs:
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: '16.0'
-          
+
       # --- CORRECTED BUILD COMMAND ---
-      # Use the .xcodeproj because CocoaPods is not yet installed.
+      # Build using the .xcodeproj at the repo root
       - name: Build project
         run: |
-          xcodebuild build -project Marko/Marko.xcodeproj \
-                     -scheme Marko \
-                     -destination 'platform=iOS Simulator,name=iPhone 15,OS=18.0'
+          xcodebuild build \
+            -project Marko.xcodeproj \
+            -scheme Marko \
+            -destination 'platform=iOS Simulator,name=iPhone 15,OS=18.0'
