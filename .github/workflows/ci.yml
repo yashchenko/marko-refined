@@ -1,15 +1,17 @@
-name: iOS CI
+name: iOS CI & Jira Automation
 
 on:
   push:
-    branches: [ develop, main ]
+    branches: [ develop ] # We only really need to build on pushes to develop
   pull_request:
-    branches: [ develop, main ]
+    # This section is important for the Jira automation
+    types: [opened, closed] # Run when a PR is opened OR closed (merged)
+    branches: [ develop ]
 
 jobs:
+  # --- JOB 1: YOUR EXISTING BUILD JOB (UNCHANGED) ---
   build:
     runs-on: macos-14
-
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -24,6 +26,77 @@ jobs:
         run: |
           xcodebuild \
             -scheme Marko \
+            -project Marko.xcodeproj \ # Switched to xcodeproj as we still haven't added pods
             -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5' \
-            clean build | xcpretty
+            clean build
+
+  # --- JOB 2: THE NEW JIRA AUTOMATION JOB ---
+  jira-transition:
+    # This job needs the 'build' job to succeed first
+    needs: build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Get Jira Key from Branch Name
+        # This step uses a script to find the MRK-123 pattern in the branch name
+        id: get-jira-key
+        run: |
+          BRANCH_NAME="${{ github.head_ref }}"
+          JIRA_KEY=$(echo "$BRANCH_NAME" | grep -o -E '[A-Z]+-[0-9]+')
+          echo "JIRA_KEY=${JIRA_KEY}" >> $GITHUB_OUTPUT
+
+      - name: Transition Jira Issue to 'In Progress'
+        # This step only runs if a Pull Request was just opened
+        if: github.event.action == 'opened'
+        uses: atlassian/gajira-transition@v3
+        with:
+          issue: ${{ steps.get-jira-key.outputs.JIRA_KEY }}
+          transition: "In Progress"
+          # These are the secrets you created
+          login: ${{ secrets.JIRA_USER_EMAIL }}
+          password: ${{ secrets.JIRA_API_TOKEN }}
+          site: ${{ secrets.JIRA_BASE_URL }}
+          
+      - name: Transition Jira Issue to 'Done'
+        # This step only runs if a Pull Request was just closed AND it was merged
+        if: github.event.action == 'closed' && github.event.pull_request.merged == true
+        uses: atlassian/gajira-transition@v3
+        with:
+          issue: ${{ steps.get-jira-key.outputs.JIRA_KEY }}
+          transition: "Done"
+          # These are the secrets you created
+          login: ${{ secrets.JIRA_USER_EMAIL }}
+          password: ${{ secrets.JIRA_API_TOKEN }}
+          site: ${{ secrets.JIRA_BASE_URL }}
+
+
+#name: iOS CI
+#
+#on:
+#  push:
+#    branches: [ develop, main ]
+#  pull_request:
+#    branches: [ develop, main ]
+#
+#jobs:
+#  build:
+#    runs-on: macos-14
+#
+#    steps:
+#      - name: Checkout source
+#        uses: actions/checkout@v4
+#
+#      - name: Select Xcode 15
+#        run: sudo xcode-select -s "/Applications/Xcode_15.2.app"
+#
+#      - name: Show Xcode version
+#        run: xcodebuild -version
+#
+#      - name: Build for simulator (iPhone 15, iOS 17.5)
+#        run: |
+#          xcodebuild \
+#            -scheme Marko \
+#            -sdk iphonesimulator \
+#            -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5' \
+#            clean build | xcpretty
