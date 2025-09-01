@@ -1,17 +1,22 @@
+# file: .github/workflows/ci.yml
 name: iOS CI & Jira Automation
 
 on:
   push:
-    branches: [ develop ] # We only really need to build on pushes to develop
+    branches: [ develop ]
   pull_request:
-    # This section is important for the Jira automation
-    types: [opened, closed] # Run when a PR is opened OR closed (merged)
+    # Run when a PR is opened OR closed (merged)
+    types: [opened, closed]
     branches: [ develop ]
 
 jobs:
-  # --- JOB 1: YOUR EXISTING BUILD JOB (UNCHANGED) ---
+  # --------------------------
+  # JOB: build
+  # --------------------------
   build:
+    name: Build (macOS / Xcode)
     runs-on: macos-14
+
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -24,48 +29,70 @@ jobs:
 
       - name: Build for simulator (iPhone 15, iOS 17.5)
         run: |
+          # Build using the project file (no CocoaPods workspace)
           xcodebuild \
             -scheme Marko \
-            -project Marko.xcodeproj \ # Switched to xcodeproj as we still haven't added pods
+            -project Marko.xcodeproj \
             -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5' \
             clean build
 
-  # --- JOB 2: THE NEW JIRA AUTOMATION JOB ---
+  # --------------------------
+  # JOB: jira-transition
+  # --------------------------
+  # This runs only for pull_request events, and only after build succeeds.
   jira-transition:
-    # This job needs the 'build' job to succeed first
+    name: Jira automation (extract key, transition)
     needs: build
     runs-on: ubuntu-latest
-    
+    if: ${{ github.event_name == 'pull_request' }}
+
     steps:
+      - name: "Get branch name (debug)"
+        run: |
+          echo "github.head_ref='${{ github.head_ref }}'"
+          echo "github.ref='${{ github.ref }}'"
+
       - name: Get Jira Key from Branch Name
-        # This step uses a script to find the MRK-123 pattern in the branch name
         id: get-jira-key
         run: |
+          # Use the PR head_ref (branch name). In PR events this is available as github.head_ref.
           BRANCH_NAME="${{ github.head_ref }}"
-          JIRA_KEY=$(echo "$BRANCH_NAME" | grep -o -E '[A-Z]+-[0-9]+')
-          echo "JIRA_KEY=${JIRA_KEY}" >> $GITHUB_OUTPUT
+
+          # Fallback: try to extract from github.ref (not needed for PRs but safe)
+          if [ -z "$BRANCH_NAME" ]; then
+            BRANCH_NAME="${{ github.ref }}"
+          fi
+
+          # Extract pattern like MRK-123 (one or more uppercase letters, dash, digits)
+          JIRA_KEY=$(echo "$BRANCH_NAME" | grep -o -E '[A-Z]+-[0-9]+' || true)
+
+          echo "branch_name=$BRANCH_NAME"
+          echo "JIRA_KEY=$JIRA_KEY"
+
+          # Write output for later steps
+          echo "JIRA_KEY=$JIRA_KEY" >> $GITHUB_OUTPUT
+
+      - name: Debug: show detected Jira key
+        run: |
+          echo "Detected JIRA_KEY='${{ steps.get-jira-key.outputs.JIRA_KEY }}'"
 
       - name: Transition Jira Issue to 'In Progress'
-        # This step only runs if a Pull Request was just opened
-        if: github.event.action == 'opened'
+        if: ${{ steps.get-jira-key.outputs.JIRA_KEY != '' && github.event.action == 'opened' }}
         uses: atlassian/gajira-transition@v3
         with:
           issue: ${{ steps.get-jira-key.outputs.JIRA_KEY }}
           transition: "In Progress"
-          # These are the secrets you created
           login: ${{ secrets.JIRA_USER_EMAIL }}
           password: ${{ secrets.JIRA_API_TOKEN }}
           site: ${{ secrets.JIRA_BASE_URL }}
-          
+
       - name: Transition Jira Issue to 'Done'
-        # This step only runs if a Pull Request was just closed AND it was merged
-        if: github.event.action == 'closed' && github.event.pull_request.merged == true
+        if: ${{ steps.get-jira-key.outputs.JIRA_KEY != '' && github.event.action == 'closed' && github.event.pull_request.merged == true }}
         uses: atlassian/gajira-transition@v3
         with:
           issue: ${{ steps.get-jira-key.outputs.JIRA_KEY }}
           transition: "Done"
-          # These are the secrets you created
           login: ${{ secrets.JIRA_USER_EMAIL }}
           password: ${{ secrets.JIRA_API_TOKEN }}
           site: ${{ secrets.JIRA_BASE_URL }}
