@@ -5,13 +5,12 @@ on:
   push:
     branches: [ develop ]
   pull_request:
-    # Run when a PR is opened OR closed (merged)
     types: [opened, closed]
     branches: [ develop ]
 
 jobs:
   # --------------------------
-  # JOB: build
+  # Build job
   # --------------------------
   build:
     name: Build (macOS / Xcode)
@@ -38,9 +37,8 @@ jobs:
             clean build
 
   # --------------------------
-  # JOB: jira-transition
+  # Jira automation job
   # --------------------------
-  # This runs only for pull_request events, and only after build succeeds.
   jira-transition:
     name: Jira automation (extract key, transition)
     needs: build
@@ -48,34 +46,39 @@ jobs:
     if: ${{ github.event_name == 'pull_request' }}
 
     steps:
-      - name: "Get branch name (debug)"
+      - name: Show PR metadata (debug)
         run: |
           echo "github.head_ref='${{ github.head_ref }}'"
           echo "github.ref='${{ github.ref }}'"
+          echo "github.event.action='${{ github.event.action }}'"
 
-      - name: Get Jira Key from Branch Name
-        id: get-jira-key
+      - id: get-jira-key
+        name: Get Jira Key from Branch Name
+        # Use env to safely inject GitHub context values into the shell
+        env:
+          GITHUB_HEAD_REF: ${{ github.head_ref }}
+          GITHUB_REF: ${{ github.ref }}
         run: |
-          # Use the PR head_ref (branch name). In PR events this is available as github.head_ref.
-          BRANCH_NAME="${{ github.head_ref }}"
-
-          # Fallback: try to extract from github.ref (not needed for PRs but safe)
+          # prefer github.head_ref (branch name on PR); fallback to github.ref
+          BRANCH_NAME="${GITHUB_HEAD_REF}"
           if [ -z "$BRANCH_NAME" ]; then
-            BRANCH_NAME="${{ github.ref }}"
+            BRANCH_NAME="${GITHUB_REF}"
           fi
 
-          # Extract pattern like MRK-123 (one or more uppercase letters, dash, digits)
+          # extract pattern like MRK-123 (uppercase letters, dash, digits)
           JIRA_KEY=$(echo "$BRANCH_NAME" | grep -o -E '[A-Z]+-[0-9]+' || true)
 
           echo "branch_name=$BRANCH_NAME"
           echo "JIRA_KEY=$JIRA_KEY"
 
-          # Write output for later steps
+          # export output for other steps
           echo "JIRA_KEY=$JIRA_KEY" >> $GITHUB_OUTPUT
 
       - name: Debug: show detected Jira key
+        env:
+          JIRA_KEY: ${{ steps.get-jira-key.outputs.JIRA_KEY }}
         run: |
-          echo "Detected JIRA_KEY='${{ steps.get-jira-key.outputs.JIRA_KEY }}'"
+          echo "Detected JIRA_KEY='$JIRA_KEY'"
 
       - name: Transition Jira Issue to 'In Progress'
         if: ${{ steps.get-jira-key.outputs.JIRA_KEY != '' && github.event.action == 'opened' }}
