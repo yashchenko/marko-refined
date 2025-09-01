@@ -16,6 +16,11 @@
 		FA647F9A2E61ECBB000C2FE5 /* MarkoCoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA647F992E61ECBB000C2FE5 /* MarkoCoreTests.swift */; };
 		FA7A51A92E5E74A800CF9A31 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A51A82E5E74A800CF9A31 /* MainCoordinator.swift */; };
 		FA7A51AC2E5E74BB00CF9A31 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A51AB2E5E74BB00CF9A31 /* CoordinatorProtocol.swift */; };
+		FAFFF5042E66001C007B0644 /* Teacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFFF5032E66001C007B0644 /* Teacher.swift */; };
+		FAFFF5072E66002A007B0644 /* TimeSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFFF5062E66002A007B0644 /* TimeSlot.swift */; };
+		FAFFF50A2E660038007B0644 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFFF5092E660038007B0644 /* User.swift */; };
+		FAFFF50D2E66029B007B0644 /* Lesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFFF50C2E66029B007B0644 /* Lesson.swift */; };
+		FAFFF5102E6602B5007B0644 /* PayoutLedgerEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFFF50F2E6602B5007B0644 /* PayoutLedgerEntry.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +35,11 @@
 		FA647F992E61ECBB000C2FE5 /* MarkoCoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkoCoreTests.swift; sourceTree = "<group>"; };
 		FA7A51A82E5E74A800CF9A31 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		FA7A51AB2E5E74BB00CF9A31 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
+		FAFFF5032E66001C007B0644 /* Teacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teacher.swift; sourceTree = "<group>"; };
+		FAFFF5062E66002A007B0644 /* TimeSlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSlot.swift; sourceTree = "<group>"; };
+		FAFFF5092E660038007B0644 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		FAFFF50C2E66029B007B0644 /* Lesson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lesson.swift; sourceTree = "<group>"; };
+		FAFFF50F2E6602B5007B0644 /* PayoutLedgerEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayoutLedgerEntry.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +146,11 @@
 		FA7A51A32E5E73FD00CF9A31 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				FAFFF5032E66001C007B0644 /* Teacher.swift */,
+				FAFFF5062E66002A007B0644 /* TimeSlot.swift */,
+				FAFFF50C2E66029B007B0644 /* Lesson.swift */,
+				FAFFF50F2E6602B5007B0644 /* PayoutLedgerEntry.swift */,
+				FAFFF5092E660038007B0644 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -250,12 +265,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA30CE622E5530FD0053783F /* AppDelegate.swift in Sources */,
+				FAFFF5072E66002A007B0644 /* TimeSlot.swift in Sources */,
 				FA7A51A92E5E74A800CF9A31 /* MainCoordinator.swift in Sources */,
 				FA7A51AC2E5E74BB00CF9A31 /* CoordinatorProtocol.swift in Sources */,
 				FA30CE642E5530FD0053783F /* SceneDelegate.swift in Sources */,
+				FAFFF5042E66001C007B0644 /* Teacher.swift in Sources */,
 				FA30CE7B2E55317C0053783F /* TeacherListVC.swift in Sources */,
 				FA647F9A2E61ECBB000C2FE5 /* MarkoCoreTests.swift in Sources */,
+				FAFFF50A2E660038007B0644 /* User.swift in Sources */,
+				FAFFF5102E6602B5007B0644 /* PayoutLedgerEntry.swift in Sources */,
 				FA4EF4632E5FC25500A232A4 /* HomeCoordinator.swift in Sources */,
+				FAFFF50D2E66029B007B0644 /* Lesson.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
