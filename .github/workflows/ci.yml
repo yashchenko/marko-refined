@@ -9,9 +9,6 @@ on:
     branches: [ develop ]
 
 jobs:
-  # --------------------------
-  # Build job
-  # --------------------------
   build:
     name: Build (macOS / Xcode)
     runs-on: macos-14
@@ -28,7 +25,6 @@ jobs:
 
       - name: Build for simulator (iPhone 15, iOS 17.5)
         run: |
-          # Build using the project file (no CocoaPods workspace)
           xcodebuild \
             -scheme Marko \
             -project Marko.xcodeproj \
@@ -36,9 +32,6 @@ jobs:
             -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5' \
             clean build
 
-  # --------------------------
-  # Jira automation job
-  # --------------------------
   jira-transition:
     name: Jira automation (extract key, transition)
     needs: build
@@ -46,6 +39,9 @@ jobs:
     if: ${{ github.event_name == 'pull_request' }}
 
     steps:
+      - name: Checkout (needed for context in some repos)
+        uses: actions/checkout@v4
+
       - name: Show PR metadata (debug)
         run: |
           echo "github.head_ref='${{ github.head_ref }}'"
@@ -54,8 +50,8 @@ jobs:
 
       - id: get-jira-key
         name: Get Jira Key from Branch Name
-        # Use env to safely inject GitHub context values into the shell
         env:
+          # pass safe copies of GitHub context into shell env
           GITHUB_HEAD_REF: ${{ github.head_ref }}
           GITHUB_REF: ${{ github.ref }}
         run: |
@@ -75,10 +71,8 @@ jobs:
           echo "JIRA_KEY=$JIRA_KEY" >> $GITHUB_OUTPUT
 
       - name: Debug: show detected Jira key
-        env:
-          JIRA_KEY: ${{ steps.get-jira-key.outputs.JIRA_KEY }}
         run: |
-          echo "Detected JIRA_KEY='$JIRA_KEY'"
+          echo "Detected JIRA_KEY='${{ steps.get-jira-key.outputs.JIRA_KEY }}'"
 
       - name: Transition Jira Issue to 'In Progress'
         if: ${{ steps.get-jira-key.outputs.JIRA_KEY != '' && github.event.action == 'opened' }}
@@ -99,34 +93,3 @@ jobs:
           login: ${{ secrets.JIRA_USER_EMAIL }}
           password: ${{ secrets.JIRA_API_TOKEN }}
           site: ${{ secrets.JIRA_BASE_URL }}
-
-
-#name: iOS CI
-#
-#on:
-#  push:
-#    branches: [ develop, main ]
-#  pull_request:
-#    branches: [ develop, main ]
-#
-#jobs:
-#  build:
-#    runs-on: macos-14
-#
-#    steps:
-#      - name: Checkout source
-#        uses: actions/checkout@v4
-#
-#      - name: Select Xcode 15
-#        run: sudo xcode-select -s "/Applications/Xcode_15.2.app"
-#
-#      - name: Show Xcode version
-#        run: xcodebuild -version
-#
-#      - name: Build for simulator (iPhone 15, iOS 17.5)
-#        run: |
-#          xcodebuild \
-#            -scheme Marko \
-#            -sdk iphonesimulator \
-#            -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5' \
-#            clean build | xcpretty
