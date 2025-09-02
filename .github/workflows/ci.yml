@@ -8,14 +8,17 @@ on:
     branches: [ develop ]
 
 jobs:
+  # --- JOB 1: Build the Xcode Project ---
   build:
     name: Build Project
     runs-on: macos-14
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
+
       - name: Select Xcode 15
         run: sudo xcode-select -s "/Applications/Xcode_15.2.app"
+
       - name: Build for simulator
         run: |
           xcodebuild \
@@ -25,50 +28,50 @@ jobs:
             -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5' \
             clean build
 
-  jira-transition:
+  # --- JOB 2: Update the Jira Ticket ---
+  jira:
     name: Update Jira Ticket
+    # This job only runs on pull request events, not regular pushes
     if: github.event_name == 'pull_request'
+    # It will only start after the 'build' job has succeeded
     needs: build
+    # It runs on a simple linux machine because it doesn't need Xcode
     runs-on: ubuntu-latest
     
     steps:
-      - name: Get Jira Key from Branch Name
-        id: get-jira-key
-        run: |
-          BRANCH_NAME="${{ github.head_ref }}"
-          echo "Branch Name: $BRANCH_NAME"
-          JIRA_KEY=$(echo "$BRANCH_NAME" | grep -o -E '[A-Z]+-[0-9]+')
-          if [ -z "$JIRA_KEY" ]; then
-            echo "Jira Key not found in branch name."
-            echo "JIRA_KEY=" >> $GITHUB_OUTPUT
-          else
-            echo "Jira Key Found: $JIRA_KEY"
-            echo "JIRA_KEY=$JIRA_KEY" >> $GITHUB_OUTPUT
-          fi
+      # Step 1: Find the Jira ticket ID from the branch name
+      - name: Find Jira Issue Key
+        id: find-issue
+        uses: atlassian/gajira-find-issue-key@v3
+        with:
+          from: branch
 
-      - name: Transition Jira Issue to 'In Progress'
-        # This step only runs if a PR was opened AND a Jira key was found
-        if: github.event.action == 'opened' && steps.get-jira-key.outputs.JIRA_KEY != ''
+      # Step 2: Login to Jira using the secrets you created
+      - name: Login to Jira
+        if: steps.find-issue.outputs.issue != ''
+        uses: atlassian/gajira-login@v3
+        env:
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+
+      # Step 3: If the PR was just opened, move the ticket to 'In Progress'
+      - name: Transition issue to 'In Progress'
+        if: steps.find-issue.outputs.issue != '' && github.event.action == 'opened'
         uses: atlassian/gajira-transition@v3
         with:
-          issue: ${{ steps.get-jira-key.outputs.JIRA_KEY }}
-          transition: "In Progress"
-          login: ${{ secrets.JIRA_USER_EMAIL }}
-          password: ${{ secrets.JIRA_API_TOKEN }}
-          site: ${{ secrets.JIRA_BASE_URL }}
+          issue: ${{ steps.find-issue.outputs.issue }}
+          transition: 'In Progress'
+
+      # Step 4: If the PR was merged, move the ticket to 'Done'
+      - name: Transition issue to 'Done'
+        if: steps.find-issue.outputs.issue != '' && github.event.action == 'closed' && github.event.pull_request.merged == true
+        uses: atlassian/gajira-transition@v3
+        with:
+          issue: ${{ steps.find-issue.outputs.issue }}
+          transition: 'Done'
           
-      - name: Transition Jira Issue to 'Done'
-        # This step only runs if a PR was closed/merged AND a Jira key was found
-        if: github.event.action == 'closed' && github.event.pull_request.merged == true && steps.get-jira-key.outputs.JIRA_KEY != ''
-        uses: atlassian/gajira-transition@v3
-        with:
-          issue: ${{ steps.get-jira-key.outputs.JIRA_KEY }}
-          transition: "Done"
-          login: ${{ secrets.JIRA_USER_EMAIL }}
-          password: ${{ secrets.JIRA_API_TOKEN }}
-          site: ${{ secrets.JIRA_BASE_URL }}
-
-
+          
 #name: iOS CI & Jira Automation
 #
 #on:
