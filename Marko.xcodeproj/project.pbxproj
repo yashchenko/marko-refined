@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		55802F4C33A1613321946D19 /* Pods_Marko.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C4DDAE0B06C70BEDE03528E /* Pods_Marko.framework */; };
 		FA30CE622E5530FD0053783F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA30CE612E5530FD0053783F /* AppDelegate.swift */; };
 		FA30CE642E5530FD0053783F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA30CE632E5530FD0053783F /* SceneDelegate.swift */; };
 		FA30CE6B2E5531020053783F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA30CE6A2E5531020053783F /* Assets.xcassets */; };
@@ -16,6 +17,8 @@
 		FA647F9A2E61ECBB000C2FE5 /* MarkoCoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA647F992E61ECBB000C2FE5 /* MarkoCoreTests.swift */; };
 		FA7A51A92E5E74A800CF9A31 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A51A82E5E74A800CF9A31 /* MainCoordinator.swift */; };
 		FA7A51AC2E5E74BB00CF9A31 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A51AB2E5E74BB00CF9A31 /* CoordinatorProtocol.swift */; };
+		FA904C662E67549B008254C4 /* TeacherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA904C652E67549B008254C4 /* TeacherRepository.swift */; };
+		FAAAA5F52E674B21003BCD30 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAAAA5F42E674B21003BCD30 /* GoogleService-Info.plist */; };
 		FAFFF5042E66001C007B0644 /* Teacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFFF5032E66001C007B0644 /* Teacher.swift */; };
 		FAFFF5072E66002A007B0644 /* TimeSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFFF5062E66002A007B0644 /* TimeSlot.swift */; };
 		FAFFF50A2E660038007B0644 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFFF5092E660038007B0644 /* User.swift */; };
@@ -24,6 +27,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0C7C4BC21160BFC9F72FD199 /* Pods-Marko.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Marko.release.xcconfig"; path = "Target Support Files/Pods-Marko/Pods-Marko.release.xcconfig"; sourceTree = "<group>"; };
+		345AB3BF79EDD55407A3ADA8 /* Pods-Marko.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Marko.debug.xcconfig"; path = "Target Support Files/Pods-Marko/Pods-Marko.debug.xcconfig"; sourceTree = "<group>"; };
+		8C4DDAE0B06C70BEDE03528E /* Pods_Marko.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Marko.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA30CE5E2E5530FD0053783F /* Marko.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Marko.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA30CE612E5530FD0053783F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA30CE632E5530FD0053783F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -35,6 +41,8 @@
 		FA647F992E61ECBB000C2FE5 /* MarkoCoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkoCoreTests.swift; sourceTree = "<group>"; };
 		FA7A51A82E5E74A800CF9A31 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		FA7A51AB2E5E74BB00CF9A31 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
+		FA904C652E67549B008254C4 /* TeacherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherRepository.swift; sourceTree = "<group>"; };
+		FAAAA5F42E674B21003BCD30 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FAFFF5032E66001C007B0644 /* Teacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teacher.swift; sourceTree = "<group>"; };
 		FAFFF5062E66002A007B0644 /* TimeSlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSlot.swift; sourceTree = "<group>"; };
 		FAFFF5092E660038007B0644 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -47,18 +55,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55802F4C33A1613321946D19 /* Pods_Marko.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E71CF864ACE94DA60B5727D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				345AB3BF79EDD55407A3ADA8 /* Pods-Marko.debug.xcconfig */,
+				0C7C4BC21160BFC9F72FD199 /* Pods-Marko.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		8698E5EF28B52F2827F668D2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8C4DDAE0B06C70BEDE03528E /* Pods_Marko.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FA30CE552E5530FD0053783F = {
 			isa = PBXGroup;
 			children = (
 				FA647FA52E61F094000C2FE5 /* MarkoTests */,
 				FA30CE602E5530FD0053783F /* Marko */,
 				FA30CE5F2E5530FD0053783F /* Products */,
+				3E71CF864ACE94DA60B5727D /* Pods */,
+				8698E5EF28B52F2827F668D2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -117,6 +145,7 @@
 		FA7A519F2E5E738000CF9A31 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				FA904C652E67549B008254C4 /* TeacherRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -190,6 +219,7 @@
 				FA30CE612E5530FD0053783F /* AppDelegate.swift */,
 				FA30CE632E5530FD0053783F /* SceneDelegate.swift */,
 				FA30CE6C2E5531020053783F /* LaunchScreen.storyboard */,
+				FAAAA5F42E674B21003BCD30 /* GoogleService-Info.plist */,
 				FA30CE6F2E5531020053783F /* Info.plist */,
 			);
 			path = Application;
@@ -202,9 +232,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FA30CE722E5531020053783F /* Build configuration list for PBXNativeTarget "Marko" */;
 			buildPhases = (
+				B02386C7E2FD6CABF3F10A87 /* [CP] Check Pods Manifest.lock */,
 				FA30CE5A2E5530FD0053783F /* Sources */,
 				FA30CE5B2E5530FD0053783F /* Frameworks */,
 				FA30CE5C2E5530FD0053783F /* Resources */,
+				22FA7DDB258023909DE49CC9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -254,10 +286,53 @@
 			files = (
 				FA30CE6E2E5531020053783F /* LaunchScreen.storyboard in Resources */,
 				FA30CE6B2E5531020053783F /* Assets.xcassets in Resources */,
+				FAAAA5F52E674B21003BCD30 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		22FA7DDB258023909DE49CC9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Marko/Pods-Marko-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Marko/Pods-Marko-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Marko/Pods-Marko-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B02386C7E2FD6CABF3F10A87 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Marko-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FA30CE5A2E5530FD0053783F /* Sources */ = {
@@ -265,6 +340,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA30CE622E5530FD0053783F /* AppDelegate.swift in Sources */,
+				FA904C662E67549B008254C4 /* TeacherRepository.swift in Sources */,
 				FAFFF5072E66002A007B0644 /* TimeSlot.swift in Sources */,
 				FA7A51A92E5E74A800CF9A31 /* MainCoordinator.swift in Sources */,
 				FA7A51AC2E5E74BB00CF9A31 /* CoordinatorProtocol.swift in Sources */,
@@ -411,6 +487,7 @@
 		};
 		FA30CE732E5531020053783F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 345AB3BF79EDD55407A3ADA8 /* Pods-Marko.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -430,6 +507,7 @@
 		};
 		FA30CE742E5531020053783F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0C7C4BC21160BFC9F72FD199 /* Pods-Marko.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
