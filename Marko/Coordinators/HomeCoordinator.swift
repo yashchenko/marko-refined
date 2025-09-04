@@ -15,8 +15,23 @@ class HomeCoordinator: Coordinator {
     }
     
     func start() {
+        let repo = TeacherRepository()
+        
+        repo.fetchTeachers { result in
+            
+            switch result {
+            case .failure(let error):
+                print(error.localizedDescription)
+            case .success(let teachers):
+                print(teachers.first?.name ?? "None")
+            
+            }
+            
+        }
+        
         let teacherVC = TeacherListVC()
         teacherVC.title = "Marko school"
         navigation.pushViewController(teacherVC, animated: false)
+        
     }
 }
