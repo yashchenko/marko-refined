@@ -33,13 +33,15 @@ class TeacherRepository {
                 let data = doc.data()
                 let id = doc.documentID
                 
+                print("--- DEBUG: Processing document with ID: \(id), DATA: \(data) ---")
+                
                 guard
                     let name = data["name"] as? String,
                     let headline = data["headline"] as? String,
                     let profileImageURL = data["profileImageURL"] as? String,
                     let rating = data["rating"] as? Double,
-                    let reviewCount = data["reviewCount"] as? Int,
-                    let hourlyRate = data["hourlyRate"] as? Int,
+                    let reviewCount = (data["reviewCount"] as? NSNumber)?.intValue,
+                    let hourlyRate = (data["hourlyRate"] as? NSNumber)?.intValue,
                     let fullDescription = data["fullDescription"] as? String
                 else {
                     print("warning! skipping document \(id) due to missing files")
