@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class TeacherCollectionViewCell: UICollectionViewCell {
     
@@ -160,19 +161,23 @@ class TeacherCollectionViewCell: UICollectionViewCell {
     // MARK: - Public Configuration
     
     public func configure(with teacher: Teacher) {
-        // In a future ticket, this is where we will use Kingfisher
-        // For now, we can test with a local or system image
-        // teacherImageView.image = UIImage(named: "somePlaceholder")
         
         nameLabel.text = teacher.name
         headlineLabel.text = teacher.headline
         ratingLabel.text = "\(teacher.rating) (\(teacher.reviewCount) reviews)"
         priceLabel.text = "$\(teacher.hourlyRate)/hr"
+        
+        let url = URL(string: teacher.profileImageURL)
+        let placeholder = UIImage(systemName: "person.crop.rectangle.stack")
+        teacherImageView.kf.setImage(with: url, placeholder: placeholder)
     }
     
     // It's good practice to reset content for cell reuse
     override func prepareForReuse() {
         super.prepareForReuse()
+        
+        teacherImageView.kf.cancelDownloadTask()
+        
         teacherImageView.image = nil
         nameLabel.text = nil
         headlineLabel.text = nil
