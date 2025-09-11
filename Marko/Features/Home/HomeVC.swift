@@ -21,6 +21,35 @@ class HomeVC: UIViewController {
         return cv
     }()
     
+    let lessonsButton: UIButton = {
+        let bt = UIButton(type: .system)
+        
+        // style the button
+        bt.setTitle("My Lessons 2", for: .normal) // For now, we'll hardcode the "2". Later, this will come from a ViewModel.
+        bt.backgroundColor = .systemBlue
+        bt.setTitleColor(.white, for: .normal)
+        bt.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        
+        // make it pill-shaped
+        bt.layer.cornerRadius = 15
+        
+        // some padding inside the button
+        bt.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 9, right: 16)
+        
+        bt.translatesAutoresizingMaskIntoConstraints = false
+        return bt
+    }()
+    
+    
+    let profileButton: UIButton = {
+        let bt = UIButton(type: .system)
+        bt.setTitle("AB", for: .normal) // it temoparily placeholder
+        bt.setTitleColor(.label, for: .normal) // lable works both light and dark
+        bt.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        bt.translatesAutoresizingMaskIntoConstraints = false
+        return bt
+    }()
+    
     
     init(vm: HomeViewModel) {
         self.homeViewModel = vm
@@ -35,6 +64,7 @@ class HomeVC: UIViewController {
         super.viewDidLoad()
         
         setupUI()
+        setupNavBar()
         setupConstraints()
         
         homeViewModel.closureOutlet = { [weak self] in
@@ -48,7 +78,6 @@ class HomeVC: UIViewController {
         
         homeViewModel.fetchTeachers()
         view.backgroundColor = .systemGray6
-        
     }
     
     private func setupUI() {
@@ -57,6 +86,19 @@ class HomeVC: UIViewController {
 
         collectionView.delegate = self
         collectionView.dataSource = self
+    }
+    
+    private func setupNavBar() {
+        
+        let titleLabel = UILabel()
+        titleLabel.text = "Marko School"
+        titleLabel.font = UIFont.systemFont(ofSize: 22, weight: .bold)
+        titleLabel.textColor = .label
+        
+        let lessonBarItem = UIBarButtonItem(customView: lessonsButton)
+        let profileBarItem = UIBarButtonItem(customView: profileButton)
+        navigationItem.rightBarButtonItems = [profileBarItem, lessonBarItem]
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
     }
     
     private func setupConstraints() {
@@ -69,8 +111,6 @@ class HomeVC: UIViewController {
         
     }
 }
-
-
 
 
 extension HomeVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
