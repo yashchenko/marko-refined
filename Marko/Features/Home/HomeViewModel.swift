@@ -14,6 +14,8 @@ class HomeViewModel {
     private(set) var teachersArray: [Teacher] = []
 
     var closureOutlet: () -> () = { }
+    
+    var didSelaectTeacher: ((Teacher) -> Void)?
 
     init(teacherDatabase: TeacherRepository) {
         self.db = teacherDatabase
