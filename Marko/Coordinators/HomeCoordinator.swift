@@ -18,6 +18,22 @@ class HomeCoordinator: Coordinator {
         let repo = TeacherRepository()
         let homeVM = HomeViewModel(teacherDatabase: repo)
         let homeVC = HomeVC(vm: homeVM)
+        
+        
+        homeVM.didSelaectTeacher = { [weak self] teacher in
+            
+            self?.showTeacherDetail(for: teacher)
+            
+        }
+        
+        
         navigation.pushViewController(homeVC, animated: false)
+        
+    }
+    
+    func showTeacherDetail(for teacher: Teacher) {
+        let teacherDetailVM = TeacherDetailVM(teacher: teacher)
+        let teacherDetailVC = TeacherDetailVC(vm: teacherDetailVM)
+        navigation.pushViewController(teacherDetailVC, animated: true)
     }
 }

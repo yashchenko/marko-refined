@@ -20,6 +20,8 @@
 		FA9D97B42E6A404C00A475E7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9D97B32E6A404C00A475E7 /* HomeViewModel.swift */; };
 		FA9D97B72E6A5FCC00A475E7 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9D97B62E6A5FCC00A475E7 /* HomeVC.swift */; };
 		FAAAA5F52E674B21003BCD30 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAAAA5F42E674B21003BCD30 /* GoogleService-Info.plist */; };
+		FADA76CF2E74CAAF00775599 /* TeacherDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADA76CE2E74CAAF00775599 /* TeacherDetailVM.swift */; };
+		FADA76D32E74CC0100775599 /* TeacherDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADA76D22E74CC0100775599 /* TeacherDetailVC.swift */; };
 		FAFE88E92E6C6E4700B1BD91 /* TeacherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFE88E82E6C6E4700B1BD91 /* TeacherCollectionViewCell.swift */; };
 		FAFFF5042E66001C007B0644 /* Teacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFFF5032E66001C007B0644 /* Teacher.swift */; };
 		FAFFF5072E66002A007B0644 /* TimeSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFFF5062E66002A007B0644 /* TimeSlot.swift */; };
@@ -46,6 +48,8 @@
 		FA9D97B32E6A404C00A475E7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		FA9D97B62E6A5FCC00A475E7 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		FAAAA5F42E674B21003BCD30 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FADA76CE2E74CAAF00775599 /* TeacherDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherDetailVM.swift; sourceTree = "<group>"; };
+		FADA76D22E74CC0100775599 /* TeacherDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherDetailVC.swift; sourceTree = "<group>"; };
 		FAFE88E82E6C6E4700B1BD91 /* TeacherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherCollectionViewCell.swift; sourceTree = "<group>"; };
 		FAFFF5032E66001C007B0644 /* Teacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teacher.swift; sourceTree = "<group>"; };
 		FAFFF5062E66002A007B0644 /* TimeSlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSlot.swift; sourceTree = "<group>"; };
@@ -201,6 +205,8 @@
 		FA7A51A52E5E745000CF9A31 /* TeacherDetail */ = {
 			isa = PBXGroup;
 			children = (
+				FADA76CE2E74CAAF00775599 /* TeacherDetailVM.swift */,
+				FADA76D22E74CC0100775599 /* TeacherDetailVC.swift */,
 			);
 			path = TeacherDetail;
 			sourceTree = "<group>";
@@ -353,7 +359,9 @@
 				FA7A51AC2E5E74BB00CF9A31 /* CoordinatorProtocol.swift in Sources */,
 				FA30CE642E5530FD0053783F /* SceneDelegate.swift in Sources */,
 				FA9D97B72E6A5FCC00A475E7 /* HomeVC.swift in Sources */,
+				FADA76CF2E74CAAF00775599 /* TeacherDetailVM.swift in Sources */,
 				FAFFF5042E66001C007B0644 /* Teacher.swift in Sources */,
+				FADA76D32E74CC0100775599 /* TeacherDetailVC.swift in Sources */,
 				FA647F9A2E61ECBB000C2FE5 /* MarkoCoreTests.swift in Sources */,
 				FA9D97B42E6A404C00A475E7 /* HomeViewModel.swift in Sources */,
 				FAFFF50A2E660038007B0644 /* User.swift in Sources */,

@@ -156,4 +156,10 @@ extension HomeVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollec
         return 24
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedTeacher = homeViewModel.teachersArray[indexPath.item]
+        homeViewModel.didSelaectTeacher?(selectedTeacher)
+    }
+    
+    
 }
