@@ -16,6 +16,7 @@
 		FA647F9A2E61ECBB000C2FE5 /* MarkoCoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA647F992E61ECBB000C2FE5 /* MarkoCoreTests.swift */; };
 		FA7A51A92E5E74A800CF9A31 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A51A82E5E74A800CF9A31 /* MainCoordinator.swift */; };
 		FA7A51AC2E5E74BB00CF9A31 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A51AB2E5E74BB00CF9A31 /* CoordinatorProtocol.swift */; };
+		FA7C2AE42E762F0700473D84 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7C2AE32E762F0700473D84 /* AuthService.swift */; };
 		FA904C662E67549B008254C4 /* TeacherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA904C652E67549B008254C4 /* TeacherRepository.swift */; };
 		FA9D97B42E6A404C00A475E7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9D97B32E6A404C00A475E7 /* HomeViewModel.swift */; };
 		FA9D97B72E6A5FCC00A475E7 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9D97B62E6A5FCC00A475E7 /* HomeVC.swift */; };
@@ -44,6 +45,7 @@
 		FA647F992E61ECBB000C2FE5 /* MarkoCoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkoCoreTests.swift; sourceTree = "<group>"; };
 		FA7A51A82E5E74A800CF9A31 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		FA7A51AB2E5E74BB00CF9A31 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
+		FA7C2AE32E762F0700473D84 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		FA904C652E67549B008254C4 /* TeacherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherRepository.swift; sourceTree = "<group>"; };
 		FA9D97B32E6A404C00A475E7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		FA9D97B62E6A5FCC00A475E7 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 		FA7A51A02E5E73A500CF9A31 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				FA7C2AE32E762F0700473D84 /* AuthService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -354,6 +357,7 @@
 				FA30CE622E5530FD0053783F /* AppDelegate.swift in Sources */,
 				FAFE88E92E6C6E4700B1BD91 /* TeacherCollectionViewCell.swift in Sources */,
 				FA904C662E67549B008254C4 /* TeacherRepository.swift in Sources */,
+				FA7C2AE42E762F0700473D84 /* AuthService.swift in Sources */,
 				FAFFF5072E66002A007B0644 /* TimeSlot.swift in Sources */,
 				FA7A51A92E5E74A800CF9A31 /* MainCoordinator.swift in Sources */,
 				FA7A51AC2E5E74BB00CF9A31 /* CoordinatorProtocol.swift in Sources */,
