@@ -6,7 +6,10 @@
 //
 //
 
+
+
 import UIKit
+import Firebase
 
 class HomeVC: UIViewController {
     
@@ -51,6 +54,21 @@ class HomeVC: UIViewController {
     }()
     
     
+    private let signInButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Sign In", for: .normal)
+        button.backgroundColor = .systemGreen
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        button.layer.cornerRadius = 15
+        button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        // We'll add an action later in another ticket
+        // button.addTarget(self, action: #selector(handleSignInTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    
     init(vm: HomeViewModel) {
         self.homeViewModel = vm
         super.init(nibName: nil, bundle: nil)
@@ -67,6 +85,16 @@ class HomeVC: UIViewController {
         setupNavBar()
         setupConstraints()
         
+        AuthService.shared.onAuthStsteChanged = { [weak self] user in
+            
+            DispatchQueue.main.async {
+                self?.updateNavBar(for: user)
+
+            }
+            
+            
+        }
+        
         homeViewModel.closureOutlet = { [weak self] in
             guard let self = self else { return }
             
@@ -74,10 +102,19 @@ class HomeVC: UIViewController {
             
             self.collectionView.reloadData()
             
+//            // In HomeVC -> viewDidLoad (TEMPORARY for UI testing)
+//            updateNavigationBar(for: Auth.auth().currentUser) // Change this line
+//
+//            // To this:
+//            // This is fake data, but it will make the "logged in" UI appear.
+//            updateNavigationBar(for: FakeFirebaseUser())
+            
         }
         
         homeViewModel.fetchTeachers()
         view.backgroundColor = .systemGray6
+        
+        updateNavBar(for: AuthService.shared.currentUser)
     }
     
     private func setupUI() {
@@ -100,6 +137,56 @@ class HomeVC: UIViewController {
         navigationItem.rightBarButtonItems = [profileBarItem, lessonBarItem]
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
     }
+    
+
+    private func updateNavBar(for user: FirebaseAuth.User?) {
+        
+        if let user = user {
+            let initials = String(user.email?.prefix(2) ?? "??").uppercased()
+            profileButton.setTitle(initials, for: .normal)
+            lessonsButton.setTitle("My Lessons 2", for: .normal)
+            
+            let lessonsBarButton = UIBarButtonItem(customView: lessonsButton)
+            let profileBarButton = UIBarButtonItem(customView: profileButton)
+            
+            navigationItem.rightBarButtonItems = [profileBarButton, lessonsBarButton]
+        } else {
+            let signInBarButton = UIBarButtonItem(customView: signInButton)
+            navigationItem.rightBarButtonItems = [signInBarButton]
+        }
+        
+    }
+    
+    
+//    // Add this new function to the HomeVC class
+//    private func updateNavigationBar(for user: FirebaseAuth.User?) {
+//        if let user = user {
+//            // --- LOGGED IN STATE ---
+//
+//            // Use the email to create initials. A real app would get this from a User model.
+//            let initials = String(user.email?.prefix(2) ?? "??").uppercased()
+//            profileButton.setTitle(initials, for: .normal)
+//
+//            // For now, the badge is hard-coded.
+//            lessonsButton.setTitle("My Lessons 2", for: .normal)
+//
+//            // Create the bar button items for the logged-in state
+//            let lessonsBarButton = UIBarButtonItem(customView: lessonsButton)
+//            let profileBarButton = UIBarButtonItem(customView: profileButton)
+//
+//            // Set the buttons on the navigation bar
+//            navigationItem.rightBarButtonItems = [profileBarButton, lessonsBarButton]
+//
+//        } else {
+//            // --- LOGGED OUT STATE ---
+//
+//            // Create the bar button item for the logged-out state
+//            let signInBarButton = UIBarButtonItem(customView: signInButton)
+//
+//            // Set only the sign in button on the navigation bar
+//            navigationItem.rightBarButtonItems = [signInBarButton]
+//        }
+//    }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
