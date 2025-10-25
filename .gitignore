@@ -39,4 +39,7 @@ DerivedData/
 timeline.xctimeline
 playground.xcworkspace
 
+# Firebase Admin Service Account Key
+scripts/serviceAccountKey.json
+
 # End of .gitignore

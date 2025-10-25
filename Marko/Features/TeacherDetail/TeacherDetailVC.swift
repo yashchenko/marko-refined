@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FSCalendar
+import SnapKit
 
 class TeacherDetailVC: UIViewController {
     
@@ -21,6 +23,54 @@ class TeacherDetailVC: UIViewController {
         return label
     }()
     
+    private var scrollView: UIScrollView = {
+        let scroll = UIScrollView()
+        
+        scroll.translatesAutoresizingMaskIntoConstraints = false
+        return scroll
+    }()
+    
+    private var contentStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.spacing = 20
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+    
+    private let teacherImageView: UIImageView = {
+        let image = UIImageView()
+        image.contentMode = .scaleAspectFit
+        image.clipsToBounds = true
+        image.layer.cornerRadius = 12
+        image.backgroundColor = .systemGray5
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+    
+    
+    private let nameLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    
+    private let descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        label.textColor = .label
+        label.numberOfLines = 0
+        return label
+    }()
+
+    private let calendarView: FSCalendar = {
+        let calendar = FSCalendar()
+        calendar.translatesAutoresizingMaskIntoConstraints = false
+        
+        return calendar
+    }()
 
     init(vm: TeacherDetailVM) {
         self.vm = vm
@@ -35,28 +85,77 @@ class TeacherDetailVC: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
-        title = vm.teacher.name
+        
+        setupViews()
+        setupLayout()
+        bindTeacherData()
+
+    }
+    
+
+    
+    private func setupViews() {
+        
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentStackView)
+        
+        contentStackView.addArrangedSubviews(view: [
+            
+            teacherImageView,
+            nameLabel,
+            headlineLabel,
+            descriptionLabel,
+            calendarView
+            
+        ])
         
         
-        view.addSubview(headlineLabel)
-        
-        headlineLabel.text = vm.teacher.headline
-        
-        setupConstraints()
         
     }
     
-    private func setupConstraints() {
-        NSLayoutConstraint.activate([
-            // Center the label horizontally in the view
-            headlineLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+    private func bindTeacherData() {
+        
+        let teacher = vm.teacher
+        
+        title = teacher.name
+        
+        if let teacherPhotoUrl = URL(string: teacher.profileImageURL) {
             
-            // Position it 150 points from the top of the safe area
-            headlineLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 150),
+            teacherImageView.kf.setImage(with: teacherPhotoUrl)
+        }
+        
+        headlineLabel.text = teacher.headline
+        nameLabel.text = teacher.name
+        descriptionLabel.text = teacher.fullDescription
+    }
+    
+    
+    private func setupLayout() {
+        
+        let padding: CGFloat = 20
+        
+        // scroll view constraints
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        // stack view constraints
+        contentStackView.snp.makeConstraints { make in
+            make.edges.equalTo(scrollView.contentLayoutGuide).inset(padding)
             
-            // Add left and right padding so it doesn't touch the edges
-            headlineLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            headlineLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
-        ])
+            //width should match the scroll view frame width
+            make.width.equalTo(scrollView.snp.width).offset(-2 * padding)
+        }
+        
+        // we only need to set the height, because the width is handled by the stack view
+        teacherImageView.snp.makeConstraints { make in
+            make.height.equalTo(250)
+        }
+        
+        //fscalendar need explicit height to render correctly
+        calendarView.snp.makeConstraints { make in
+            make.height.equalTo(300)
+        }
+        
     }
 }
