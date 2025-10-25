@@ -1,0 +1,86 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+  
+    // =====================================================================
+    // Rule: Teachers
+    // Who can access: Anyone can read, but NO ONE can write from the app.
+    // Rationale: Teacher profiles are public. Creation/updates should
+    //            only be done by an admin in the Firebase Console.
+    // =====================================================================
+    match /teachers/{teacherId} {
+      allow read: if true;
+      allow write: if false; 
+    }
+    
+    // =====================================================================
+    // Rule: Time Slots
+    // Who can access: Anyone can read. Only a logged-in user can update
+    //               a slot (to book it).
+    // Rationale: Availability is public. Booking is a protected action.
+    // =====================================================================
+    match /timeSlots/{timeSlotId} {
+      allow read: if true;
+      
+      // A user can only update a time slot (isBooked = true) if they are logged in.
+      // This is our first layer of security for the booking process.
+      allow update: if request.auth != null;
+      
+      // No one can create or delete time slots from the client app.
+      allow create, delete: if false;
+    }
+    
+    // =====================================================================
+    // Rule: Users
+    // Who can access: A user can only read or write their own user document.
+    // Rationale: Protects user privacy. You cannot see other users' info.
+    // =====================================================================
+    match /users/{userId} {
+      // Allow read/write only if the logged-in user's ID matches the document ID.
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // =====================================================================
+    // Rule: Lessons (Bookings)
+    // Who can access: A user can only create their own lesson. A user can only
+    //               read a lesson if they are the student OR the teacher.
+    // Rationale: Protects the privacy of lesson details.
+    // =====================================================================
+    match /lessons/{lessonId} {
+      // A logged-in user can CREATE a lesson document, but only if the
+      // 'userId' field in the new document matches their own user ID.
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+      
+      // A user can READ a lesson document if their user ID is in the 'userId' field
+      // OR the 'teacherId' field.
+      allow read: if request.auth != null && (request.auth.uid == resource.data.userId || request.auth.uid == resource.data.teacherId);
+      
+      // For now, prevent updates/deletes from the client app. Cancellations should
+      // be handled by a more robust process (like a Cloud Function later).
+      allow update, delete: if false;
+    }
+    
+    // =====================================================================
+    // Rule: Payout Ledger (Highest Security)
+    // Who can access: A user can only read their OWN payout entries. No one
+    //               can create, update, or delete them from the app.
+    // Rationale: Protects sensitive financial information.
+    // =====================================================================
+    match /payout_ledger/{ledgerId} {
+      // A user can ONLY read a ledger entry if their ID matches the 'teacherId' field.
+      allow read: if request.auth != null && request.auth.uid == resource.data.teacherId;
+      
+      // Creation of financial records should ONLY happen on the backend.
+      // For now, we are simulating this in the client, so we need a temporary rule.
+      // WARNING: This `allow create` rule is a temporary security hole.
+      // The booking transaction from the student app needs this permission. This is the
+      // first thing we will fix when we implement Cloud Functions.
+      allow create: if request.auth != null;
+      
+      // Never allow updates or deletes from the client.
+      allow update, delete: if false;
+    }
+    
+  }
+}
