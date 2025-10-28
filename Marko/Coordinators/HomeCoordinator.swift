@@ -32,7 +32,8 @@ class HomeCoordinator: Coordinator {
     }
     
     func showTeacherDetail(for teacher: Teacher) {
-        let teacherDetailVM = TeacherDetailVM(teacher: teacher)
+        let timeSlotRepo = TimeSlotRepository()
+        let teacherDetailVM = TeacherDetailVM(teacher: teacher, timeSlotRepository: timeSlotRepo)
         let teacherDetailVC = TeacherDetailVC(vm: teacherDetailVM)
         navigation.pushViewController(teacherDetailVC, animated: true)
     }
