@@ -71,6 +71,13 @@ class TeacherDetailVC: UIViewController {
         
         return calendar
     }()
+    
+    private let timeSlotsStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.spacing = 10
+        return stack
+    }()
 
     init(vm: TeacherDetailVM) {
         self.vm = vm
@@ -89,7 +96,18 @@ class TeacherDetailVC: UIViewController {
         setupViews()
         setupLayout()
         bindTeacherData()
+        
+        // Make the calendar interactive
+        calendarView.delegate = self
+        
+        // Subscribe to ViewModel updates
+        vm.didTimeSlotsUpdate = { [weak self] in
+            
+            self?.updateSlotsUI()
+        }
 
+        // Trigger the initial fetch for today's date
+        vm.loadTimeSlots(for: Date())
     }
     
 
@@ -105,7 +123,8 @@ class TeacherDetailVC: UIViewController {
             nameLabel,
             headlineLabel,
             descriptionLabel,
-            calendarView
+            calendarView,
+            timeSlotsStack
             
         ])
         
@@ -156,6 +175,49 @@ class TeacherDetailVC: UIViewController {
         calendarView.snp.makeConstraints { make in
             make.height.equalTo(300)
         }
-        
     }
+    
+    private func updateSlotsUI() {
+        // Clear out any old slot views
+        timeSlotsStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        
+        if vm.availableTimeSlots.isEmpty {
+            let noSlotsLabel = UILabel()
+            noSlotsLabel.text = "No available slots for this date."
+            noSlotsLabel.textColor = .secondaryLabel
+            noSlotsLabel.textAlignment = .center
+            timeSlotsStack.addArrangedSubview(noSlotsLabel)
+        } else {
+            for slot in vm.availableTimeSlots {
+                // For now, we'll just display the time. A future ticket will add a "Book" button.
+                let slotLabel = UILabel()
+                
+                let formatter = DateFormatter()
+                formatter.timeStyle = .short
+                let startTime = formatter.string(from: slot.startTime)
+                let endTime = formatter.string(from: slot.endTime)
+                slotLabel.text = "  \(startTime) - \(endTime)  "
+                slotLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+                slotLabel.textAlignment = .center
+                slotLabel.layer.borderColor = UIColor.systemBlue.cgColor
+                slotLabel.layer.borderWidth = 1.5
+                slotLabel.layer.cornerRadius = 8
+                slotLabel.snp.makeConstraints { make in
+                    make.height.equalTo(50)
+                }
+                
+                timeSlotsStack.addArrangedSubview(slotLabel)
+            }
+        }
+    }
+}
+
+
+extension TeacherDetailVC: FSCalendarDelegate {
+    
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        // The View's only job is to report the action to the ViewModel.
+        vm.loadTimeSlots(for: date)
+    }
+    
 }
