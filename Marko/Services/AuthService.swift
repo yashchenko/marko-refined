@@ -23,6 +23,22 @@ class AuthService {
         addAuthStateListener()
     }
     
+    // MARK: - Helpers for Booking Flow (MRK-20)
+    
+    // Returns the real User UID if logged in.
+    // If NOT logged in (Development mode), returns a fixed Mock ID so we can test bookings.
+    
+    var currentUserId: String {
+        
+        if let user = currentUser {
+            return user.uid
+        } else {
+            print("⚠️ AuthService: User not logged in. Using MOCK USER ID for testing.")
+            return "TEST_STUDENT_BV_001"
+        }
+        
+    }
+    
     private func addAuthStateListener() {
         
         authStateHandle = Auth.auth().addStateDidChangeListener({ [weak self] auth, user in
