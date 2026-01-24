@@ -85,7 +85,7 @@ class HomeVC: UIViewController {
         setupNavBar()
         setupConstraints()
         
-        AuthService.shared.onAuthStsteChanged = { [weak self] user in
+        AuthService.shared.onAuthStateChanged = { [weak self] user in
             
             DispatchQueue.main.async {
                 self?.updateNavBar(for: user)

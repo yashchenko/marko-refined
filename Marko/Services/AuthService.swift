@@ -6,62 +6,98 @@
 //
 
 import Foundation
-import Firebase
+import FirebaseAuth
 
 class AuthService {
-    
+
     static let shared = AuthService()
-    
-    private(set) var currentUser: FirebaseAuth.User? // keep current user
-    
-    var onAuthStsteChanged: ((FirebaseAuth.User?) -> Void)? // closure for notifications
-    
+
+    private(set) var currentUser: FirebaseAuth.User?
+
+    // Уведомление об изменении статуса (вошел/вышел)
+    var onAuthStateChanged: ((FirebaseAuth.User?) -> Void)?
+
+    // Храним handle слушателя, чтобы потом удалить его в deinit
     private var authStateHandle: AuthStateDidChangeListenerHandle?
-    
-    private init() {
-        
-        addAuthStateListener()
+
+
+    // MARK: - Init
+    private init () {
+
+        setupAuthStateListener()
+
     }
-    
-    // MARK: - Helpers for Booking Flow (MRK-20)
-    
-    // Returns the real User UID if logged in.
-    // If NOT logged in (Development mode), returns a fixed Mock ID so we can test bookings.
-    
+
+    var isLoggedIn: Bool {
+
+        return currentUser != nil
+    }
+
     var currentUserId: String {
-        
-        if let user = currentUser {
-            return user.uid
-        } else {
-            print("⚠️ AuthService: User not logged in. Using MOCK USER ID for testing.")
-            return "TEST_STUDENT_BV_001"
-        }
-        
+
+        // Теперь возвращаем реальный ID. Если юзер не залогинен, возвращаем пустую строку или обрабатываем это на уровне UI
+        return currentUser?.uid ?? ""
     }
-    
-    private func addAuthStateListener() {
-        
-        authStateHandle = Auth.auth().addStateDidChangeListener({ [weak self] auth, user in
-            
-            self?.currentUser = user
-            self?.onAuthStsteChanged?(user)
-            
-            
-            if let user = user {
-                print("AuthService: User is signed in with UID: \(user.uid)")
-            } else {
-                
-                print("AuthService: User is signed out.")
+
+
+    // MARK: - Auth Actions
+
+    func signIn(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void) {
+
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self] result, error in
+            if let error = error {
+
+                completion(.failure(error))
+                return
             }
-            
+            self?.currentUser = result?.user
+            completion(.success(()))
+        }
+    }
+
+    func signUp(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void) {
+
+
+        Auth.auth().createUser(withEmail: email, password: password) { [weak self] result, error in
+
+            if let error = error {
+
+                completion(.failure(error))
+                return
+            }
+
+            self?.currentUser = result?.user
+            completion(.success(()))
+
+        }
+    }
+
+    func signOut() {
+        do {
+
+            try Auth.auth().signOut()
+        } catch {
+
+            print("AuthService: Sign out error: \(error.localizedDescription)")
+        }
+    }
+
+
+    // MARK: - Setup
+
+    private func setupAuthStateListener() {
+
+        authStateHandle = Auth.auth().addStateDidChangeListener({ [weak self] auth, user in
+            self?.currentUser = user
+            self?.onAuthStateChanged?(user)
+            print("AuthService: User state changed. Logged in: \(user != nil)")
         })
-        
     }
 
     deinit {
         if let handle = authStateHandle {
+
             Auth.auth().removeStateDidChangeListener(handle)
-            print("AuthService: Auth state listener removed.")
         }
     }
 }
