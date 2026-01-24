@@ -26,7 +26,7 @@ class HomeCoordinator: Coordinator {
             
         }
         
-        
+        //navigation.setViewControllers([homeVC], animated: true)
         navigation.pushViewController(homeVC, animated: false)
         
     }
