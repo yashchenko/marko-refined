@@ -10,10 +10,11 @@
 
 import UIKit
 import Firebase
+import SnapKit
 
 class HomeVC: UIViewController {
     
-    var homeViewModel: HomeViewModel
+    var vm: HomeViewModel
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -24,37 +25,33 @@ class HomeVC: UIViewController {
         return cv
     }()
     
-    let lessonsButton: UIButton = {
-        let bt = UIButton(type: .system)
-        
-        // style the button
-        bt.setTitle("My Lessons 2", for: .normal) // For now, we'll hardcode the "2". Later, this will come from a ViewModel.
-        bt.backgroundColor = .systemBlue
-        bt.setTitleColor(.white, for: .normal)
-        bt.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-        
-        // make it pill-shaped
-        bt.layer.cornerRadius = 15
+    // [MAR-171] Кнопка для залогиненного пользователя
+    lazy var lessonsButton: UIButton = {
+       
+        let button = UIButton(type: .system)
+        button.setTitle("My Lessons", for: .normal)
+        button.backgroundColor = .systemBlue
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        button.layer.cornerRadius = 15
         
         // some padding inside the button
-        bt.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 9, right: 16)
+        button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 9, right: 16)
         
-        bt.translatesAutoresizingMaskIntoConstraints = false
-        return bt
+        let action = UIAction { [weak self] _ in
+            
+            self?.vm.myLessonsTapped()
+        }
+        
+        button.addAction(action, for: .touchUpInside)
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
-    
-    let profileButton: UIButton = {
-        let bt = UIButton(type: .system)
-        bt.setTitle("AB", for: .normal) // it temoparily placeholder
-        bt.setTitleColor(.label, for: .normal) // lable works both light and dark
-        bt.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        bt.translatesAutoresizingMaskIntoConstraints = false
-        return bt
-    }()
-    
-    
-    private let signInButton: UIButton = {
+
+    // [MAR-171] Кнопка для гостя
+    lazy var signInButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Sign In", for: .normal)
         button.backgroundColor = .systemGreen
@@ -63,14 +60,19 @@ class HomeVC: UIViewController {
         button.layer.cornerRadius = 15
         button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
         button.translatesAutoresizingMaskIntoConstraints = false
-        // We'll add an action later in another ticket
-        // button.addTarget(self, action: #selector(handleSignInTapped), for: .touchUpInside)
+
+        // [MAR-171] Action: Используем твой метод signInTappaed()
+        let action = UIAction { [weak self] _ in
+            self?.vm.signInTappaed()
+        }
+        button.addAction(action, for: .touchUpInside)
+
         return button
     }()
-    
-    
+
+
     init(vm: HomeViewModel) {
-        self.homeViewModel = vm
+        self.vm = vm
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -85,33 +87,23 @@ class HomeVC: UIViewController {
         setupNavBar()
         setupConstraints()
         
+        // [MAR-171] Подписка на статус авторизации
         AuthService.shared.onAuthStateChanged = { [weak self] user in
             
             DispatchQueue.main.async {
                 self?.updateNavBar(for: user)
-
             }
-            
-            
         }
         
-        homeViewModel.closureOutlet = { [weak self] in
+        vm.didFetchTeachers = { [weak self] in
             guard let self = self else { return }
             
             print("Home vc screen receive the siglal from ether")
             
             self.collectionView.reloadData()
-            
-//            // In HomeVC -> viewDidLoad (TEMPORARY for UI testing)
-//            updateNavigationBar(for: Auth.auth().currentUser) // Change this line
-//
-//            // To this:
-//            // This is fake data, but it will make the "logged in" UI appear.
-//            updateNavigationBar(for: FakeFirebaseUser())
-            
         }
         
-        homeViewModel.fetchTeachers()
+        vm.fetchTeachers()
         view.backgroundColor = .systemGray6
         
         updateNavBar(for: AuthService.shared.currentUser)
@@ -123,6 +115,11 @@ class HomeVC: UIViewController {
 
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        // [DEV ONLY] Добавляем долгий тап на кнопку уроков для выхода
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleSignOut(gesture: )))
+        lessonsButton.addGestureRecognizer(longPress)
+        
     }
     
     private func setupNavBar() {
@@ -132,82 +129,52 @@ class HomeVC: UIViewController {
         titleLabel.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         titleLabel.textColor = .label
         
-        let lessonBarItem = UIBarButtonItem(customView: lessonsButton)
-        let profileBarItem = UIBarButtonItem(customView: profileButton)
-        navigationItem.rightBarButtonItems = [profileBarItem, lessonBarItem]
+        // [MAR-171] Убрали старую кнопку профиля. Оставили только title.
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
     }
     
-
     private func updateNavBar(for user: FirebaseAuth.User?) {
         
-        if let user = user {
-            let initials = String(user.email?.prefix(2) ?? "??").uppercased()
-            profileButton.setTitle(initials, for: .normal)
-            lessonsButton.setTitle("My Lessons 2", for: .normal)
-            
-            let lessonsBarButton = UIBarButtonItem(customView: lessonsButton)
-            let profileBarButton = UIBarButtonItem(customView: profileButton)
-            
-            navigationItem.rightBarButtonItems = [profileBarButton, lessonsBarButton]
+        if user != nil {
+            let lessonBarButton = UIBarButtonItem(customView: lessonsButton)
+            navigationItem.rightBarButtonItem = lessonBarButton
         } else {
+            
             let signInBarButton = UIBarButtonItem(customView: signInButton)
-            navigationItem.rightBarButtonItems = [signInBarButton]
+            navigationItem.rightBarButtonItem = signInBarButton
         }
-        
     }
     
     
-//    // Add this new function to the HomeVC class
-//    private func updateNavigationBar(for user: FirebaseAuth.User?) {
-//        if let user = user {
-//            // --- LOGGED IN STATE ---
-//
-//            // Use the email to create initials. A real app would get this from a User model.
-//            let initials = String(user.email?.prefix(2) ?? "??").uppercased()
-//            profileButton.setTitle(initials, for: .normal)
-//
-//            // For now, the badge is hard-coded.
-//            lessonsButton.setTitle("My Lessons 2", for: .normal)
-//
-//            // Create the bar button items for the logged-in state
-//            let lessonsBarButton = UIBarButtonItem(customView: lessonsButton)
-//            let profileBarButton = UIBarButtonItem(customView: profileButton)
-//
-//            // Set the buttons on the navigation bar
-//            navigationItem.rightBarButtonItems = [profileBarButton, lessonsBarButton]
-//
-//        } else {
-//            // --- LOGGED OUT STATE ---
-//
-//            // Create the bar button item for the logged-out state
-//            let signInBarButton = UIBarButtonItem(customView: signInButton)
-//
-//            // Set only the sign in button on the navigation bar
-//            navigationItem.rightBarButtonItems = [signInBarButton]
-//        }
-//    }
-    
     private func setupConstraints() {
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
         
+        collectionView.snp.makeConstraints({ make in
+            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalToSuperview()
+        })
+    }
+    
+    // [DEV ONLY] Временный выход для тестирования
+    @objc private func handleSignOut(gesture: UILongPressGestureRecognizer) {
+        if gesture.state == .began {
+            AuthService.shared.signOut()
+            
+            let alert = UIAlertController(title: "Dev Mode", message: "Signed Out Succesfully", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default))
+            present(alert, animated: true)
+        }
     }
 }
 
 
 extension HomeVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        homeViewModel.teachersArray.count
+        vm.teachersArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TeacherCollectionViewCell.reuseIdentifier, for: indexPath) as? TeacherCollectionViewCell else { return UICollectionViewCell() }
-        let teacher = homeViewModel.teachersArray[indexPath.item]
+        let teacher = vm.teachersArray[indexPath.item]
         cell.configure(with: teacher)
         return cell
     }
@@ -244,9 +211,7 @@ extension HomeVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedTeacher = homeViewModel.teachersArray[indexPath.item]
-        homeViewModel.didSelaectTeacher?(selectedTeacher)
+        let selectedTeacher = vm.teachersArray[indexPath.item]
+        vm.didSelaectTeacher?(selectedTeacher)
     }
-    
-    
 }

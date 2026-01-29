@@ -13,6 +13,7 @@
         private let timeSlotRepo: TimeSlotRepository
         private let bookingRepo = BookingRepository()
         private var selectedDate: Date = Date()
+        var didAuthNeeded: (() -> Void)?
         
         // this var will holds the state, the View will be read from this array
         private(set) var availableTimeSlots: [TimeSlot] = []
@@ -55,6 +56,14 @@
         }
         
         func bookSlot(_ slot: TimeSlot, completion: @escaping (Result<Void, Error>) -> Void) {
+            
+            print("DEBUG: Checking login status. isLoggedIn = \(AuthService.shared.isLoggedIn)")
+            print("DEBUG: Current User ID = \(AuthService.shared.currentUserId)")
+            
+            guard AuthService.shared.isLoggedIn else {
+                self.didAuthNeeded?()
+                return
+            }
             
             // get mock student id
             let studentId = AuthService.shared.currentUserId

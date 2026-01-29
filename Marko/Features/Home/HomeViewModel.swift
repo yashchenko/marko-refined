@@ -13,15 +13,28 @@ class HomeViewModel {
 
     private(set) var teachersArray: [Teacher] = []
 
-    var closureOutlet: () -> () = { }
+    var didFetchTeachers: () -> () = { }
     
     var didSelaectTeacher: ((Teacher) -> Void)?
+    
+    var didSignInTapped: (() -> Void)?
+    
+    var didMyLessonsTapped: (() -> Void)?
 
     init(teacherDatabase: TeacherRepository) {
         self.db = teacherDatabase
 
     }
 
+    
+    func signInTappaed() {
+        didSignInTapped?()
+    }
+    
+    func myLessonsTapped() {
+        didMyLessonsTapped?()
+    }
+    
     func fetchTeachers() {
 
         db.fetchTeachers { [weak self] result in
@@ -34,7 +47,7 @@ class HomeViewModel {
                 self.teachersArray = teachers
                 print("success to fetch teachers in home view model")
                 DispatchQueue.main.async {
-                    self.closureOutlet()
+                    self.didFetchTeachers()
                 }
             }
         }

@@ -26,8 +26,24 @@ class HomeCoordinator: Coordinator {
             
         }
         
+        
+        homeVM.didSignInTapped = { [weak self] in
+            
+            self?.showLoginModal()
+            
+        }
+        
+        homeVM.didMyLessonsTapped = { [weak self] in
+            
+            print("Coming in MAR-172")
+        }
+        
+        
+        
+        
+        
         //navigation.setViewControllers([homeVC], animated: true)
-        navigation.pushViewController(homeVC, animated: false)
+        navigation.setViewControllers([homeVC], animated: true  )
         
     }
     
@@ -35,6 +51,36 @@ class HomeCoordinator: Coordinator {
         let timeSlotRepo = TimeSlotRepository()
         let teacherDetailVM = TeacherDetailVM(teacher: teacher, timeSlotRepo: timeSlotRepo)
         let teacherDetailVC = TeacherDetailVC(vm: teacherDetailVM)
+        
+        teacherDetailVM.didAuthNeeded = { [weak self] in
+            
+            self?.showLoginModal()
+        }
+        
         navigation.pushViewController(teacherDetailVC, animated: true)
     }
+    
+    func showLoginModal() {
+        
+        let authNav = UINavigationController()
+        let authCoordinator = AuthCoordinator(navController: authNav)
+        
+        // Код, который должен выполниться, когда юзер успешно войдет
+        authCoordinator.didFinish = { [weak self, weak authNav] in
+            
+            authNav?.dismiss(animated: true)
+            self?.childCoordinators.removeAll { $0 === authCoordinator }
+        }
+        
+        // удержание в памяти
+        childCoordinators.append(authCoordinator)
+        
+        // показ экрана
+        authCoordinator.start()
+        
+        navigation.present(authNav, animated: true)
+        
+    }
+    
+    
 }
