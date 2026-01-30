@@ -220,6 +220,11 @@ class TeacherDetailVC: UIViewController {
     
     private func handleBookingTap(for slot: TimeSlot) {
         
+        guard AuthService.shared.isLoggedIn else {
+            vm.bookSlot(slot) { _ in }
+            return
+        }
+        
         self.selectedSlotToBook = slot
         self.isPaymentAuthorized = false
         

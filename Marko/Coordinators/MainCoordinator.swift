@@ -11,9 +11,7 @@ import  Firebase
 class MainCoordinator: Coordinator {
     
     var navigation: UINavigationController
-    
     var childCoordinators = [Coordinator]()
-    
     var window: UIWindow?
     
     
@@ -28,58 +26,32 @@ class MainCoordinator: Coordinator {
         window?.rootViewController = navigation
         window?.makeKeyAndVisible()
         
-        // Подписываемся на изменения статуса авторизации
-        AuthService.shared.onAuthStateChanged = { [weak self] user in
-            
-            DispatchQueue.main.async {
-                self?.checkFlow(user: user)
+        showHomeFlow()
+    }
+    
 
-            }
-            
-        }
-        
-        // Первичная проверка при запуске
-        checkFlow(user: AuthService.shared.currentUser)
-        
-    }
-    
-    private func checkFlow(user: FirebaseAuth.User?) {
-        
-        // Очищаем старых координаторов, чтобы не плодить их
-        childCoordinators.removeAll()
-        
-        if user != nil {
-            
-            showHomeFlow()
-            
-        } else {
-            
-            showAuthFlow()
-        }
-    }
-
-    
-    private func showAuthFlow() {
-        
-        let authCoordinator = AuthCoordinator(navController: navigation)
-        childCoordinators.append(authCoordinator)
-        authCoordinator.start()
-        
-        // Обработка завершения логина (опционально, т.к. мы и так слушаем onAuthStateChanged)
-        authCoordinator.didFinish = {
-            
-        // Ничего делать не надо, сработает onAuthStateChanged и переключит на Home
-            
-        }
-        
-    }
-    
+//
+//    private func showAuthFlow() {
+//
+//        let authCoordinator = AuthCoordinator(navController: navigation)
+//        childCoordinators.append(authCoordinator)
+//        authCoordinator.start()
+//
+//        // Обработка завершения логина (опционально, т.к. мы и так слушаем onAuthStateChanged)
+//        authCoordinator.didFinish = {
+//
+//        // Ничего делать не надо, сработает onAuthStateChanged и переключит на Home
+//
+//        }
+//
+//    }
+//
     private func showHomeFlow() {
+        guard childCoordinators.isEmpty else { return }
         
         let homeCoordinator = HomeCoordinator(nav: navigation)
         childCoordinators.append(homeCoordinator)
         homeCoordinator.start()
         
     }
-    
 }
