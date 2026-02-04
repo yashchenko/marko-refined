@@ -25,6 +25,8 @@
 		FA9D97B42E6A404C00A475E7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9D97B32E6A404C00A475E7 /* HomeViewModel.swift */; };
 		FA9D97B72E6A5FCC00A475E7 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9D97B62E6A5FCC00A475E7 /* HomeVC.swift */; };
 		FAAAA5F52E674B21003BCD30 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAAAA5F42E674B21003BCD30 /* GoogleService-Info.plist */; };
+		FAB38A002F3033EA00AD041A /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB389FF2F3033EA00AD041A /* UIView+Ext.swift */; };
+		FAC5F0662F2F1826000AB15E /* LessonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC5F0652F2F1826000AB15E /* LessonCell.swift */; };
 		FAD5D9B62F1EBF1300DFE17F /* AuthVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD5D9B52F1EBF1300DFE17F /* AuthVC.swift */; };
 		FADA76CF2E74CAAF00775599 /* TeacherDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADA76CE2E74CAAF00775599 /* TeacherDetailVM.swift */; };
 		FADA76D32E74CC0100775599 /* TeacherDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADA76D22E74CC0100775599 /* TeacherDetailVC.swift */; };
@@ -61,6 +63,8 @@
 		FA9D97B32E6A404C00A475E7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		FA9D97B62E6A5FCC00A475E7 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		FAAAA5F42E674B21003BCD30 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FAB389FF2F3033EA00AD041A /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
+		FAC5F0652F2F1826000AB15E /* LessonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCell.swift; sourceTree = "<group>"; };
 		FAD5D9B52F1EBF1300DFE17F /* AuthVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthVC.swift; sourceTree = "<group>"; };
 		FADA76CE2E74CAAF00775599 /* TeacherDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherDetailVM.swift; sourceTree = "<group>"; };
 		FADA76D22E74CC0100775599 /* TeacherDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherDetailVC.swift; sourceTree = "<group>"; };
@@ -237,6 +241,7 @@
 		FA7A51A62E5E746400CF9A31 /* Lessons */ = {
 			isa = PBXGroup;
 			children = (
+				FAC5F0652F2F1826000AB15E /* LessonCell.swift */,
 			);
 			path = Lessons;
 			sourceTree = "<group>";
@@ -261,6 +266,7 @@
 			isa = PBXGroup;
 			children = (
 				FA932F9E2E99EAB4006B06BA /* StackView+Ext..swift */,
+				FAB389FF2F3033EA00AD041A /* UIView+Ext.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -396,10 +402,12 @@
 				FA932F9F2E99EAB4006B06BA /* StackView+Ext..swift in Sources */,
 				FA30CE622E5530FD0053783F /* AppDelegate.swift in Sources */,
 				FAFE88E92E6C6E4700B1BD91 /* TeacherCollectionViewCell.swift in Sources */,
+				FAB38A002F3033EA00AD041A /* UIView+Ext.swift in Sources */,
 				FA904C662E67549B008254C4 /* TeacherRepository.swift in Sources */,
 				FA2C7D832F2DC5EA004E919D /* LessonsRepository.swift in Sources */,
 				FA840DBF2F1C4ADE004D850A /* AuthCoordinator.swift in Sources */,
 				FA7C2AE42E762F0700473D84 /* AuthService.swift in Sources */,
+				FAC5F0662F2F1826000AB15E /* LessonCell.swift in Sources */,
 				FAFFF5072E66002A007B0644 /* TimeSlot.swift in Sources */,
 				FA7A51A92E5E74A800CF9A31 /* MainCoordinator.swift in Sources */,
 				FA7A51AC2E5E74BB00CF9A31 /* CoordinatorProtocol.swift in Sources */,
