@@ -13,6 +13,6 @@ extension UIStackView {
         
         view.forEach { child in
             addArrangedSubview(child)
-        }
+            }
     }
 }
