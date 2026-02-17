@@ -13,3 +13,12 @@ target 'Marko' do
 #  pod 'Lottie', '~> 3.4.3'      # For animations
   pod 'Alamofire', '~> 5.4.4'   # For advanced network requests
 end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      # Исключаем armv7 из архитектур
+      config.build_settings['EXCLUDED_ARCHS[sdk=iphoneos*]'] = 'armv7'
+    end
+  end
+end
