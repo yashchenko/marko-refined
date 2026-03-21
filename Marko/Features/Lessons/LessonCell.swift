@@ -217,7 +217,7 @@ class LessonCell: UICollectionViewCell {
         }
         
         teacherNameLabel.text = lesson.teacherName
-        subjectLabel.text = "Hardcoded String"
+        subjectLabel.text = lesson.subject
         
         dateTimeLabel.text = formatDateTime(lesson.startTime)
         

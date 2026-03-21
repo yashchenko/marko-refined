@@ -163,7 +163,7 @@ class TeacherCollectionViewCell: UICollectionViewCell {
     public func configure(with teacher: Teacher) {
         
         nameLabel.text = teacher.name
-        headlineLabel.text = teacher.headline
+        headlineLabel.text = teacher.subject
         ratingLabel.text = "\(teacher.rating) (\(teacher.reviewCount) reviews)"
         priceLabel.text = "$\(teacher.hourlyRate)/hr"
         

@@ -81,6 +81,7 @@ class BookingRepository {
                 "timeSlotId": timeSlot.id,
                 "teacherName": teacher.name,
                 "teacherProfileImageURL": teacher.profileImageURL,
+                "subject": teacher.headline,
                 "startTime": timeSlot.startTime,
                 "endTime": timeSlot.endTime,
                 "pricePaid": grossAmount,
