@@ -42,7 +42,8 @@ class TeacherRepository {
                     let rating = data["rating"] as? Double,
                     let reviewCount = (data["reviewCount"] as? NSNumber)?.intValue,
                     let hourlyRate = (data["hourlyRate"] as? NSNumber)?.intValue,
-                    let fullDescription = data["fullDescription"] as? String
+                    let fullDescription = data["fullDescription"] as? String,
+                    let subject = data["subject"] as? String
                 else {
                     print("warning! skipping document \(id) due to missing files")
                     return nil
@@ -50,7 +51,7 @@ class TeacherRepository {
             
             let contactURL = data["contactURL"] as? String
             
-                return Teacher(id: id, name: name, headline: headline, profileImageURL: profileImageURL, rating: rating, reviewCount: reviewCount, hourlyRate: hourlyRate, fullDescription: fullDescription, contactURL: contactURL)
+                return Teacher(id: id, name: name, headline: headline, profileImageURL: profileImageURL, rating: rating, reviewCount: reviewCount, hourlyRate: hourlyRate, fullDescription: fullDescription, contactURL: contactURL, subject: subject)
                 
             }
             

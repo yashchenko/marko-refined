@@ -15,6 +15,7 @@ struct Lesson {
     let timeSlotId: String
     let teacherName: String
     let teacherProfileImageURL: String
+    let subject: String
     let studentInitials: String
     let startTime: Date
     let endTime: Date
@@ -29,6 +30,7 @@ struct Lesson {
             let timeSlotId = data["timeSlotId"] as? String,
             let teacherName = data["teacherName"] as? String,
             let teacherProfileImageURL = data["teacherProfileImageURL"] as? String,
+            let lessonSubject = data["subject"] as? String,
             let currency = data["currency"] as? String,
             let statusString = data["status"] as? String
         
@@ -74,6 +76,7 @@ struct Lesson {
         self.timeSlotId = timeSlotId
         self.teacherName = teacherName
         self.teacherProfileImageURL = teacherProfileImageURL
+        self.subject = lessonSubject
         self.studentInitials = studentInitials
         self.startTime = startTimestamp.dateValue()  // Конвертация Timestamp → Date
         self.endTime = endTimestamp.dateValue()      // Конвертация Timestamp → Date

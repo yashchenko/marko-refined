@@ -17,4 +17,5 @@ struct Teacher {
     let hourlyRate: Int
     let fullDescription: String
     let contactURL: String?
+    let subject: String
 }
