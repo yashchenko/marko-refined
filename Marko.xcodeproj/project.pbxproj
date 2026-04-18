@@ -14,9 +14,12 @@
 		FA30CE642E5530FD0053783F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA30CE632E5530FD0053783F /* SceneDelegate.swift */; };
 		FA30CE6B2E5531020053783F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA30CE6A2E5531020053783F /* Assets.xcassets */; };
 		FA30CE6E2E5531020053783F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA30CE6C2E5531020053783F /* LaunchScreen.storyboard */; };
+		FA3634652F917A8C00C0FBE4 /* TermsOfServiceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3634642F917A8C00C0FBE4 /* TermsOfServiceVC.swift */; };
+		FA399EC52F9419E60034923B /* PrivacyPolicyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA399EC42F9419E60034923B /* PrivacyPolicyVC.swift */; };
 		FA4EF4632E5FC25500A232A4 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4EF4622E5FC25500A232A4 /* HomeCoordinator.swift */; };
 		FA647F9A2E61ECBB000C2FE5 /* MarkoCoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA647F992E61ECBB000C2FE5 /* MarkoCoreTests.swift */; };
 		FA682F712F55FA6D00DCE638 /* Array+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA682F702F55FA6D00DCE638 /* Array+Ext.swift */; };
+		FA69B01B2F743A9E007CDD64 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA69B01A2F743A9E007CDD64 /* ProfileVC.swift */; };
 		FA7024BC2F58F07600478BD6 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7024BB2F58F07600478BD6 /* Date+Ext.swift */; };
 		FA7A51A92E5E74A800CF9A31 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A51A82E5E74A800CF9A31 /* MainCoordinator.swift */; };
 		FA7A51AC2E5E74BB00CF9A31 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A51AB2E5E74BB00CF9A31 /* CoordinatorProtocol.swift */; };
@@ -31,6 +34,7 @@
 		FAA8E3AB2F490E3E006F5A7A /* Lesson+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8E3AA2F490E3E006F5A7A /* Lesson+Ext.swift */; };
 		FAAAA5F52E674B21003BCD30 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAAAA5F42E674B21003BCD30 /* GoogleService-Info.plist */; };
 		FAB38A002F3033EA00AD041A /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB389FF2F3033EA00AD041A /* UIView+Ext.swift */; };
+		FAC260C32F74A012000F78A3 /* ProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC260C22F74A012000F78A3 /* ProfileVM.swift */; };
 		FAC5F0662F2F1826000AB15E /* LessonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC5F0652F2F1826000AB15E /* LessonCell.swift */; };
 		FAD5D9B62F1EBF1300DFE17F /* AuthVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD5D9B52F1EBF1300DFE17F /* AuthVC.swift */; };
 		FADA76CF2E74CAAF00775599 /* TeacherDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADA76CE2E74CAAF00775599 /* TeacherDetailVM.swift */; };
@@ -57,9 +61,12 @@
 		FA30CE6A2E5531020053783F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA30CE6D2E5531020053783F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FA30CE6F2E5531020053783F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA3634642F917A8C00C0FBE4 /* TermsOfServiceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfServiceVC.swift; sourceTree = "<group>"; };
+		FA399EC42F9419E60034923B /* PrivacyPolicyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyVC.swift; sourceTree = "<group>"; };
 		FA4EF4622E5FC25500A232A4 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		FA647F992E61ECBB000C2FE5 /* MarkoCoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkoCoreTests.swift; sourceTree = "<group>"; };
 		FA682F702F55FA6D00DCE638 /* Array+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Ext.swift"; sourceTree = "<group>"; };
+		FA69B01A2F743A9E007CDD64 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		FA7024BB2F58F07600478BD6 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		FA7A51A82E5E74A800CF9A31 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		FA7A51AB2E5E74BB00CF9A31 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
@@ -74,6 +81,7 @@
 		FAA8E3AA2F490E3E006F5A7A /* Lesson+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Lesson+Ext.swift"; sourceTree = "<group>"; };
 		FAAAA5F42E674B21003BCD30 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FAB389FF2F3033EA00AD041A /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
+		FAC260C22F74A012000F78A3 /* ProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVM.swift; sourceTree = "<group>"; };
 		FAC5F0652F2F1826000AB15E /* LessonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCell.swift; sourceTree = "<group>"; };
 		FAD5D9B52F1EBF1300DFE17F /* AuthVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthVC.swift; sourceTree = "<group>"; };
 		FADA76CE2E74CAAF00775599 /* TeacherDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherDetailVM.swift; sourceTree = "<group>"; };
@@ -264,6 +272,10 @@
 		FA7A51A72E5E747200CF9A31 /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				FA69B01A2F743A9E007CDD64 /* ProfileVC.swift */,
+				FA3634642F917A8C00C0FBE4 /* TermsOfServiceVC.swift */,
+				FA399EC42F9419E60034923B /* PrivacyPolicyVC.swift */,
+				FAC260C22F74A012000F78A3 /* ProfileVM.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -421,22 +433,26 @@
 				FAB38A002F3033EA00AD041A /* UIView+Ext.swift in Sources */,
 				FA904C662E67549B008254C4 /* TeacherRepository.swift in Sources */,
 				FA2C7D832F2DC5EA004E919D /* LessonsRepository.swift in Sources */,
+				FA69B01B2F743A9E007CDD64 /* ProfileVC.swift in Sources */,
 				FA840DBF2F1C4ADE004D850A /* AuthCoordinator.swift in Sources */,
 				FA7C2AE42E762F0700473D84 /* AuthService.swift in Sources */,
 				FAC5F0662F2F1826000AB15E /* LessonCell.swift in Sources */,
 				FAFFF5072E66002A007B0644 /* TimeSlot.swift in Sources */,
 				FA7A51A92E5E74A800CF9A31 /* MainCoordinator.swift in Sources */,
 				FA7A51AC2E5E74BB00CF9A31 /* CoordinatorProtocol.swift in Sources */,
+				FAC260C32F74A012000F78A3 /* ProfileVM.swift in Sources */,
 				FA30CE642E5530FD0053783F /* SceneDelegate.swift in Sources */,
 				FA9D97B72E6A5FCC00A475E7 /* HomeVC.swift in Sources */,
 				FADA76CF2E74CAAF00775599 /* TeacherDetailVM.swift in Sources */,
 				FA051B7B2F3B698E0076EF95 /* LessonsVC.swift in Sources */,
+				FA3634652F917A8C00C0FBE4 /* TermsOfServiceVC.swift in Sources */,
 				FAFFF5042E66001C007B0644 /* Teacher.swift in Sources */,
 				FA682F712F55FA6D00DCE638 /* Array+Ext.swift in Sources */,
 				FADA76D32E74CC0100775599 /* TeacherDetailVC.swift in Sources */,
 				FA647F9A2E61ECBB000C2FE5 /* MarkoCoreTests.swift in Sources */,
 				FA840DC32F1C531A004D850A /* AuthViewModel.swift in Sources */,
 				FAD5D9B62F1EBF1300DFE17F /* AuthVC.swift in Sources */,
+				FA399EC52F9419E60034923B /* PrivacyPolicyVC.swift in Sources */,
 				FA9D97B42E6A404C00A475E7 /* HomeViewModel.swift in Sources */,
 				FAFFF50A2E660038007B0644 /* User.swift in Sources */,
 				FAA284D82F3344C2008BDA2A /* LessonsVM.swift in Sources */,

@@ -74,15 +74,38 @@ class AuthService {
 
     func signOut() {
         do {
-
             try Auth.auth().signOut()
         } catch {
 
             print("AuthService: Sign out error: \(error.localizedDescription)")
         }
     }
-
-
+    
+    func deleteAccount(completion: @escaping (Result<Void, Error>) -> Void) {
+        
+        guard let user = currentUser else {
+            
+            let error = NSError(domain: "AuthService", code: 401, userInfo: ["NSLocalizedDescriptionKey": "No user logged in"])
+            
+            completion(.failure(error))
+            print("AuthService: \(error.localizedDescription)")
+            return
+        }
+        
+        user.delete { (error) in
+            
+            if let error = error {
+                
+                print(error.localizedDescription)
+                completion(.failure(error))
+            } else {
+                print("AuthService: account was deleted succesfull")
+                completion(.success(()))
+                
+            }
+        }
+    }
+ 
     // MARK: - Setup
 
     private func setupAuthStateListener() {
