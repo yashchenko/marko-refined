@@ -5,6 +5,10 @@
 //  Created by Ivan on 25.03.2026.
 //
 
+//title отображается только если экран находится внутри UINavigationController. Судя по скриншоту — navigation bar вообще нет, значит твой координатор показывает ProfileVC без него.
+//Скинь координатор — посмотрю как он презентует этот экран, там и исправим.
+
+
 import UIKit
 import SnapKit
 
@@ -14,6 +18,23 @@ class ProfileVC: UIViewController {
 
     var vm: ProfileVM
     let termsVC = TermsOfServiceVC()
+    let privacyPolicyVC = PrivacyPolicyVC()
+    
+    
+    lazy var stackOfButton: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [
+            termsButton,
+            privacyPolicyButton,
+            deleteButton
+        ])
+        
+        stack.axis = .vertical
+        stack.distribution = .fillEqually
+        stack.spacing = 20
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stack
+    }()
     
 
     lazy var deleteButton: UIButton = {
@@ -41,19 +62,26 @@ class ProfileVC: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    lazy var privacyPolicyButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .systemIndigo
+        button.setTitle("Privacy policy", for: .normal)
+        button.addAction(UIAction { _ in
+            self.present(self.privacyPolicyVC, animated: true)
+        }, for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
         
-    // terms of service (separate VC)
     
-    // privacy policy (separate VC)
-    
-    // sign out button
     
     // pop-up alert (maybe custom alert) - ваш токен протух, для удаления акаунта разлогиньтесь и снова залогиньтесь тогда удаление станет доступно
 
     init(vm: ProfileVM) {
         self.vm = vm
         super.init(nibName: nil, bundle: nil)
-
+        title = "Profile"
         setupUI()
     }
 
@@ -65,21 +93,36 @@ class ProfileVC: UIViewController {
 
         view.addSubviews(views: [
             
-            deleteButton,
-            termsButton
+//            deleteButton,
+//            termsButton,
+//            privacyPolicyButton
+            
+            stackOfButton
 
         ])
 
         view.backgroundColor = .systemBackground
-
-        deleteButton.snp.makeConstraints { (make) in
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-            make.centerX.equalToSuperview()
-        }
         
-        termsButton.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+        stackOfButton.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+            make.top.equalTo(view.snp.centerY)
+            make.bottom.equalTo(view.snp.bottom)
         }
+
+//        deleteButton.snp.makeConstraints { (make) in
+//            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+//            make.centerX.equalToSuperview()
+//        }
+//
+//        termsButton.snp.makeConstraints { make in
+//            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+//        }
+//
+//        privacyPolicyButton.snp.makeConstraints { make in
+//            make.top.equalTo(termsButton.snp.bottom).offset(20)
+//
+//        }
+        
     }
 }
 

@@ -19,10 +19,10 @@ class PrivacyPolicyVC: UIViewController {
     
     var contentView = UIView()
     
-    lazy var privacyPolicy: UILabel = {
+    lazy var privacyPolicyLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.text = textTermsOfService
+        label.text = textPrivacyPolicy
         return label
     }()
     
@@ -39,11 +39,11 @@ class PrivacyPolicyVC: UIViewController {
         
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        contentView.addSubview(termsLabel)
+        contentView.addSubview(privacyPolicyLabel)
                 
-        [scrollView, contentView, termsLabel].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        [scrollView, contentView, privacyPolicyLabel].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
-        contentView.backgroundColor = .systemOrange
+        contentView.backgroundColor = .systemPurple
         
         scrollView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
@@ -57,7 +57,7 @@ class PrivacyPolicyVC: UIViewController {
             make.width.equalTo(scrollView.frameLayoutGuide)
         }
         
-        termsLabel.snp.makeConstraints { make in
+        privacyPolicyLabel.snp.makeConstraints { make in
             make.edges.equalTo(contentView.snp.edges).inset(padding)
         }
     }
