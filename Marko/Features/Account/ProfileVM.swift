@@ -40,8 +40,14 @@ class ProfileVM {
             }
         }
     }
+    
+    func refundmMoney() {
+        
+        let refundEntity = Refund()
+        refundEntity.refund()
+        
+    }
 }
-
 //
 //
 //# ProfileVM.swift — подробное объяснение

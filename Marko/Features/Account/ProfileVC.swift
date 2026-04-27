@@ -56,7 +56,9 @@ class ProfileVC: UIViewController {
         button.backgroundColor = .systemPink
         button.setTitle("Terms of service", for: .normal)
         button.addAction(UIAction { _ in
-            self.present(self.termsVC, animated: true)
+            
+            self.usingAlert()
+//            self.present(self.termsVC, animated: true)
         }, for: .touchUpInside)
         
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -73,8 +75,25 @@ class ProfileVC: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    func usingAlert() {
+        
+        let didCancel: (() -> ()) = {
+            
+            print("Profile VC: User did tap cancel on Refund alert")
+            
+        }
+        
+        let alert = CustomAlertVC(title: "Wanna refund", message: "Are u sure?", confirm: "OK", cancel: "No, I won't", didCancel: self.vm.refundmMoney, didOK: didCancel)
+        
+        
+//        let alert = CustomAlertVC(title: "Wanna refund", message: "Are u sure?", confirmTitle: "OK", cancelTitle: "No, I won't", onConfirm: self.vm.refundmMoney, onCancel: didCancel)
         
     
+        present(alert, animated: false)
+        
+        
+    }
     
     // pop-up alert (maybe custom alert) - ваш токен протух, для удаления акаунта разлогиньтесь и снова залогиньтесь тогда удаление станет доступно
 
