@@ -20,38 +20,6 @@ import SnapKit
 
 // MARK: - CustomAlertVC
 
-/// Универсальный кастомный алерт в стиле Apple.
-/// Поддерживает 1 или 2 кнопки, блюр-фон, анимацию появления.
-///
-/// Пример использования с одной кнопкой (токен протух):
-///
-///     let alert = CustomAlertVC(
-///         title: "Сессия истекла",
-///         message: "Пожалуйста, войдите в аккаунт заново.",
-///         confirmTitle: "Войти"
-///     )
-///     alert.onConfirm = { [weak self] in
-///         self?.navigateToLogin()
-///     }
-///     present(alert, animated: false)
-///
-/// Пример использования с двумя кнопками (рефанд):
-///
-///     let alert = CustomAlertVC(
-///         title: "Запрос возврата",
-///         message: "Вы уверены, что хотите вернуть средства за покупку?",
-///         confirmTitle: "Да, вернуть",
-///         cancelTitle: "Отмена"
-///     )
-///     alert.onConfirm = { [weak self] in
-///         self?.requestRefund()
-///     }
-///     alert.onCancel = { [weak self] in
-///         print("Пользователь отказался от рефанда")
-///     }
-///     present(alert, animated: false)
-//
-
 final class CustomAlertVC: UIViewController {
     
     // MARK: - Callbacks
@@ -197,9 +165,10 @@ final class CustomAlertVC: UIViewController {
         shadowContainer.addSubview(blurView)
 
         blurView.layer.cornerRadius = 24
-        // .continuous — "эппловский" плавный тип скругления (iOS 13+) ✓
+
+        // .continuous - Apple's smooth rounding type (iOS 13+)
         blurView.layer.cornerCurve  = .continuous
-        // Обязательно для работы cornerRadius на UIVisualEffectView
+        // Required for cornerRadius to work on UIVisualEffectView
         blurView.clipsToBounds      = true
 
         blurView.snp.makeConstraints { make in
@@ -210,8 +179,8 @@ final class CustomAlertVC: UIViewController {
     // MARK: - Setup: Labels & Text Stack
 
     private func setupContent() {
-        // Весь контент добавляем в blurView.contentView — это требование UIKit.
-        // Добавление напрямую в blurView вызовет warning и проблемы с отображением.
+      
+        // Add all content to blurView.contentView — this is a UIKit requirement. Adding content directly to blurView will trigger a warning and display issues.
         let contentView = blurView.contentView
 
         titleLabel.text   = alertTitle
@@ -270,8 +239,8 @@ final class CustomAlertVC: UIViewController {
         case cancel  // серый, вторичный
     }
 
-    /// Фабричный метод — создаёт кнопку нужного стиля.
-    /// Выделен отдельно, чтобы не дублировать код для confirm и cancel.
+   
+    // Factory method - creates a button with the desired style. Separately defined to avoid duplicating code for confirm and cancel.
     private func makeButton(title: String, style: ButtonStyle) -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
@@ -335,3 +304,37 @@ final class CustomAlertVC: UIViewController {
         )
     }
 }
+
+
+
+// Универсальный кастомный алерт в стиле Apple.
+/// Поддерживает 1 или 2 кнопки, блюр-фон, анимацию появления.
+///
+/// Пример использования с одной кнопкой (токен протух):
+///
+///     let alert = CustomAlertVC(
+///         title: "Сессия истекла",
+///         message: "Пожалуйста, войдите в аккаунт заново.",
+///         confirmTitle: "Войти"
+///     )
+///     alert.onConfirm = { [weak self] in
+///         self?.navigateToLogin()
+///     }
+///     present(alert, animated: false)
+///
+/// Пример использования с двумя кнопками (рефанд):
+///
+///     let alert = CustomAlertVC(
+///         title: "Запрос возврата",
+///         message: "Вы уверены, что хотите вернуть средства за покупку?",
+///         confirmTitle: "Да, вернуть",
+///         cancelTitle: "Отмена"
+///     )
+///     alert.onConfirm = { [weak self] in
+///         self?.requestRefund()
+///     }
+///     alert.onCancel = { [weak self] in
+///         print("Пользователь отказался от рефанда")
+///     }
+///     present(alert, animated: false)
+//

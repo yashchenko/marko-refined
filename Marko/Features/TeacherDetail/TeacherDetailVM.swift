@@ -28,31 +28,35 @@
         }
         
         func loadTimeSlots(for date: Date) {
+            
             print("TeacherDetailViewModel: Date \(date) was selected. Fetching time slots...")
             
-            DispatchQueue.main.async {
+            self.selectedDate = date
             
-                self.timeSlotRepo.fetchTimeSlots(for: self.teacher.id, on: date) { [weak self] result in
-                    guard let self = self else { return }
-                    
-                    switch result {
-                    case .failure(let error):
-                        print("there \(error.localizedDescription)")
-                        self.availableTimeSlots = []
-                    case .success(let timeslot):
-                        self.availableTimeSlots = timeslot
-                            .filter { !$0.isBooked && $0.startTime > Date() }
-                            .sorted { $0.startTime < $1.startTime }
-                        
-                        print("TeacherDetailViewModel: found \(self.availableTimeSlots.count) available slots")
+            self.timeSlotRepo.fetchTimeSlots(for: self.teacher.id, on: selectedDate) { [weak self] result in
+                
+            guard let self = self else { return }
+                
+            switch result {
+            case .failure(let error):
+                print("TeacherDetailVM: there error: \(error.localizedDescription)")
+                self.availableTimeSlots = []
+            case .success(let timeslots):
+                self.availableTimeSlots = timeslots
+                    .filter { !$0.isBooked && $0.startTime > Date() }
+                    .sorted { $0.startTime < $1.startTime }
+                
+                print("TeacherDetailViewModel: found \(self.availableTimeSlots.count) available slots")
+
                     }
-                    
+                
+                DispatchQueue.main.async {
+                  
                     self.didTimeSlotsUpdate?()
+
                 }
                 
             }
-            
-            
         }
         
         func bookSlot(_ slot: TimeSlot, completion: @escaping (Result<Void, Error>) -> Void) {

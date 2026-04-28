@@ -23,7 +23,6 @@ class HomeCoordinator: Coordinator {
         homeVM.didSelaectTeacher = { [weak self] teacher in
             
             self?.showTeacherDetail(for: teacher)
-            
         }
         
         homeVM.didSignInTapped = { [weak self] in
