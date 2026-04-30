@@ -86,13 +86,10 @@ class HomeCoordinator: Coordinator {
         let lessonRepo = LessonsRepository()
         let myLessonsVM = LessonsVM(lessonRepo: lessonRepo)
         let myLessonsVC = LessonsVC(vm: myLessonsVM)
-        
-        
+    
         navigation.pushViewController(myLessonsVC, animated: true)
-        
-        
-        
     }
+    
     
 }
 //

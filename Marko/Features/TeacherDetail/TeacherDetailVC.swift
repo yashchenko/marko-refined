@@ -13,6 +13,7 @@ import PassKit
 class TeacherDetailVC: UIViewController {
     
     private let vm: TeacherDetailVM
+    private let profileVC: ProfileVC?
     
     private var selectedSlotToBook: TimeSlot?
     
@@ -81,6 +82,20 @@ class TeacherDetailVC: UIViewController {
         stack.spacing = 10
         return stack
     }()
+    
+    private let profileButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Profile", for: .normal)
+        button.backgroundColor = .systemGray3
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        button.layer.cornerRadius = 15
+        button.addAction(UIAction { _ in
+            
+        }), for: <#T##UIControl.Event#>)
+        
+        return button
+    }()
 
     init(vm: TeacherDetailVM) {
         self.vm = vm
@@ -101,6 +116,7 @@ class TeacherDetailVC: UIViewController {
         setupViews()
         setupLayout()
         bindTeacherData()
+        setupNavBar()
         
         calendarView.delegate = self
         
@@ -169,6 +185,13 @@ class TeacherDetailVC: UIViewController {
         calendarView.snp.makeConstraints { make in
             make.height.equalTo(300)
         }
+    }
+    
+    private func setupNavBar() {
+        
+//        let button = UIBarButtonItem(barButtonSystemItem: <#T##UIBarButtonItem.SystemItem#>, target: <#T##Any?#>, action: <#T##Selector?#>)
+        
+        
     }
     
     // MARK: - Booking UI
@@ -334,10 +357,7 @@ extension TeacherDetailVC: PKPaymentAuthorizationViewControllerDelegate {
                 print("Payment cancelled by user. No booking created.")
             }
         }
-    }
-
-    
-    
+    } 
 }
 
 

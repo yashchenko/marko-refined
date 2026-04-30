@@ -5,16 +5,6 @@
 //  Created by Ivan on 24.04.2026.
 //
 
-//import UIKit
-//
-//class AlertVc: UIViewController {
-//    
-//    
-//    
-//    
-//}
-//
-
 import UIKit
 import SnapKit
 
