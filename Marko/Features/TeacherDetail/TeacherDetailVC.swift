@@ -13,7 +13,7 @@ import PassKit
 class TeacherDetailVC: UIViewController {
     
     private let vm: TeacherDetailVM
-    
+
     private var selectedSlotToBook: TimeSlot?
     
     private var isPaymentAuthorized = false
@@ -334,10 +334,7 @@ extension TeacherDetailVC: PKPaymentAuthorizationViewControllerDelegate {
                 print("Payment cancelled by user. No booking created.")
             }
         }
-    }
-
-    
-    
+    } 
 }
 
 
