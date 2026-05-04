@@ -13,8 +13,10 @@ import PassKit
 class TeacherDetailVC: UIViewController {
     
     private let vm: TeacherDetailVM
-    private let profileVC: ProfileVC?
     
+    var profileVM: ProfileVM?
+    
+
     private var selectedSlotToBook: TimeSlot?
     
     private var isPaymentAuthorized = false
@@ -83,7 +85,7 @@ class TeacherDetailVC: UIViewController {
         return stack
     }()
     
-    private let profileButton: UIButton = {
+    lazy private var profileButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Profile", for: .normal)
         button.backgroundColor = .systemGray3
@@ -92,7 +94,9 @@ class TeacherDetailVC: UIViewController {
         button.layer.cornerRadius = 15
         button.addAction(UIAction { _ in
             
-        }), for: <#T##UIControl.Event#>)
+            self.profileVM?.didProfileTapped?()
+            
+        }, for: .touchUpInside)
         
         return button
     }()
@@ -189,8 +193,8 @@ class TeacherDetailVC: UIViewController {
     
     private func setupNavBar() {
         
-//        let button = UIBarButtonItem(barButtonSystemItem: <#T##UIBarButtonItem.SystemItem#>, target: <#T##Any?#>, action: <#T##Selector?#>)
-        
+        let button = UIBarButtonItem(customView: profileButton)
+        navigationItem.rightBarButtonItem = button
         
     }
     

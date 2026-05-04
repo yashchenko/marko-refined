@@ -21,6 +21,9 @@ class ProfileVM {
     
     var didFinishAction: (() -> ())?
     
+    var didProfileTapped: (() -> ())?
+
+    
     // MARK: - Methods
     
     func signOut() {

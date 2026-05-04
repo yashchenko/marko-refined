@@ -18,8 +18,7 @@ class HomeCoordinator: Coordinator {
         let repo = TeacherRepository()
         let homeVM = HomeViewModel(teacherDatabase: repo)
         let homeVC = HomeVC(vm: homeVM)
-        
-        
+            
         homeVM.didSelaectTeacher = { [weak self] teacher in
             
             self?.showTeacherDetail(for: teacher)
@@ -34,11 +33,7 @@ class HomeCoordinator: Coordinator {
             
             self?.showMyLessons()
         }
-        
-        
-        
-        
-        
+   
         //navigation.setViewControllers([homeVC], animated: true)
         navigation.setViewControllers([homeVC], animated: true  )
         
@@ -55,6 +50,19 @@ class HomeCoordinator: Coordinator {
         }
         
         navigation.pushViewController(teacherDetailVC, animated: true)
+        
+        let profileVM = ProfileVM()
+        
+        
+        profileVM.didProfileTapped = { [weak self] in
+            
+            self?.showProfile()
+            
+        }
+        
+        teacherDetailVC.profileVM = profileVM
+        
+        
     }
     
     func showLoginModal() {
@@ -90,6 +98,18 @@ class HomeCoordinator: Coordinator {
         navigation.pushViewController(myLessonsVC, animated: true)
     }
     
+    
+    func showProfile() {
+        print("🎓 HomeCoordinator: Navigating to MyLesson")
+        
+        let profileVM = ProfileVM()
+
+        let provileVC = ProfileVC(vm: profileVM)
+        
+        
+        
+        navigation.pushViewController(provileVC, animated: true)
+    }
     
 }
 //
