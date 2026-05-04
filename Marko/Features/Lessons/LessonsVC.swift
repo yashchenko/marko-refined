@@ -59,6 +59,22 @@ class LessonsVC: UIViewController {
         return label
     }()
     
+    lazy private var profileButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Profile", for: .normal)
+        button.backgroundColor = .systemGray3
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        button.layer.cornerRadius = 15
+        button.addAction(UIAction { _ in
+            
+            self.vm.didProfileTapped?()
+            
+        }, for: .touchUpInside)
+        
+        return button
+    }()
+    
     // MARK: - Init
     
     init(vm: LessonsVM) {
@@ -79,6 +95,7 @@ class LessonsVC: UIViewController {
         setupConstraints()
         bindViewModel()
         setupActions()
+        setupNavBar()
         
         vm.loadLessons()
     }
@@ -96,6 +113,14 @@ class LessonsVC: UIViewController {
             activityIndicator
         
         ])
+    }
+    
+    
+    private func setupNavBar() {
+        
+        let button = UIBarButtonItem(customView: profileButton)
+        navigationItem.rightBarButtonItem = button
+        
     }
     
     private func setupConstraints() {

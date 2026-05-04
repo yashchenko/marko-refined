@@ -25,6 +25,8 @@ class LessonsVM {
     
     var didErrorOccur: ((String) -> Void)?
     
+    var didProfileTapped: (() -> ())?
+    
     // MARK: - Init
     
     init(lessonRepo: LessonsRepository = LessonsRepository()) {
