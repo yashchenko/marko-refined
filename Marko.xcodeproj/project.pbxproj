@@ -19,6 +19,7 @@
 		FA3634652F917A8C00C0FBE4 /* TermsOfServiceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3634642F917A8C00C0FBE4 /* TermsOfServiceVC.swift */; };
 		FA399EC52F9419E60034923B /* PrivacyPolicyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA399EC42F9419E60034923B /* PrivacyPolicyVC.swift */; };
 		FA4EF4632E5FC25500A232A4 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4EF4622E5FC25500A232A4 /* HomeCoordinator.swift */; };
+		FA58CE452FAA55030003CC09 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA58CE442FAA55030003CC09 /* CoreData.swift */; };
 		FA647F9A2E61ECBB000C2FE5 /* MarkoCoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA647F992E61ECBB000C2FE5 /* MarkoCoreTests.swift */; };
 		FA682F712F55FA6D00DCE638 /* Array+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA682F702F55FA6D00DCE638 /* Array+Ext.swift */; };
 		FA69B01B2F743A9E007CDD64 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA69B01A2F743A9E007CDD64 /* ProfileVC.swift */; };
@@ -69,6 +70,7 @@
 		FA3634642F917A8C00C0FBE4 /* TermsOfServiceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfServiceVC.swift; sourceTree = "<group>"; };
 		FA399EC42F9419E60034923B /* PrivacyPolicyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyVC.swift; sourceTree = "<group>"; };
 		FA4EF4622E5FC25500A232A4 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		FA58CE442FAA55030003CC09 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
 		FA647F992E61ECBB000C2FE5 /* MarkoCoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkoCoreTests.swift; sourceTree = "<group>"; };
 		FA682F702F55FA6D00DCE638 /* Array+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Ext.swift"; sourceTree = "<group>"; };
 		FA69B01A2F743A9E007CDD64 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				FADC8CF82EADBDAD0056C94E /* TimeSlotRepository.swift */,
 				FAE8EBF12EFA11E9004FEB9B /* BookingRepository.swift */,
 				FA2C7D822F2DC5EA004E919D /* LessonsRepository.swift */,
+				FA58CE442FAA55030003CC09 /* CoreData.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 				FAE8EBF22EFA11E9004FEB9B /* BookingRepository.swift in Sources */,
 				FA932F9F2E99EAB4006B06BA /* StackView+Ext..swift in Sources */,
 				FA7024BC2F58F07600478BD6 /* Date+Ext.swift in Sources */,
+				FA58CE452FAA55030003CC09 /* CoreData.swift in Sources */,
 				FA30CE622E5530FD0053783F /* AppDelegate.swift in Sources */,
 				FAFE88E92E6C6E4700B1BD91 /* TeacherCollectionViewCell.swift in Sources */,
 				FAB38A002F3033EA00AD041A /* UIView+Ext.swift in Sources */,

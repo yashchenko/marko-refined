@@ -22,26 +22,33 @@ struct Lesson {
     let pricePaidByStudent: Double
     let currency: String
     let status: LessonStatus
+    let meetingLink: String?
     
     init?(id: String, data: [String: Any]) {
-        guard
-            let studentId = data["studentId"] as? String,
-            let teacherId = data["teacherId"] as? String,
-            let timeSlotId = data["timeSlotId"] as? String,
-            let teacherName = data["teacherName"] as? String,
-            let teacherProfileImageURL = data["teacherProfileImageURL"] as? String,
-            let lessonSubject = data["subject"] as? String,
-            let currency = data["currency"] as? String,
-            let statusString = data["status"] as? String
+            // ШАГ 1: Достаём строковые поля
+            if data["studentId"] as? String == nil { print("❌ Missing: studentId in \(id)") }
+            if data["teacherId"] as? String == nil { print("❌ Missing: teacherId in \(id)") }
+            if data["timeSlotId"] as? String == nil { print("❌ Missing: timeSlotId in \(id)") }
+            if data["teacherName"] as? String == nil { print("❌ Missing: teacherName in \(id)") }
+            if data["teacherProfileImageURL"] as? String == nil { print("❌ Missing: teacherProfileImageURL in \(id)") }
+            if data["subject"] as? String == nil { print("❌ Missing: subject in \(id)") }
+            if data["currency"] as? String == nil { print("❌ Missing: currency in \(id)") }
+            if data["status"] as? String == nil { print("❌ Missing: status in \(id)") }
+
+            guard
+                let studentId = data["studentId"] as? String,
+                let teacherId = data["teacherId"] as? String,
+                let timeSlotId = data["timeSlotId"] as? String,
+                let teacherName = data["teacherName"] as? String,
+                let teacherProfileImageURL = data["teacherProfileImageURL"] as? String,
+                let lessonSubject = data["subject"] as? String,
+                let currency = data["currency"] as? String,
+                let statusString = data["status"] as? String
+            else {
+                return nil
+            }
         
-        else {
-            print("❌ Lesson init failed: Missing required string fields in document \(id)")
-            return nil
-        }
-        
-        // ШАГ 2: Достаём Timestamp поля и конвертируем в Date
-        // Firestore хранит даты как объекты типа Timestamp
-        // Метод .dateValue() превращает Timestamp → Date
+        // STEP 2: Extract Timestamp fields and convert to Date. Firestore stores dates as Timestamp objects. The .dateValue() method converts Timestamp → Date
         
         guard
             let startTimestamp = data["startTime"] as? Timestamp,
@@ -69,6 +76,9 @@ struct Lesson {
         
         let studentInitials = data["studentInitials"] as? String ?? "?"
         
+        // Парсим ссылку безопасно
+        let meetingLink = data["meetingLink"] as? String
+        
         
         self.id = id
         self.userId = studentId  // Маппим studentId → userId
@@ -83,6 +93,7 @@ struct Lesson {
         self.pricePaidByStudent = pricePaid
         self.currency = currency
         self.status = lessonStatus
+        self.meetingLink = meetingLink
 
         // Логируем успешное создание (для отладки)
         print("✅ Lesson created: \(teacherName) on \(startTimestamp.dateValue())")
@@ -96,4 +107,31 @@ enum LessonStatus: String {
     case completed
     case cancelledByStudent
     case cancelledByTeacher
+}
+
+
+extension Lesson {
+    
+    // Дополнительный инициализатор для создания объекта из кэша (Core Data)
+        init(id: String, userId: String, teacherId: String, timeSlotId: String,
+             teacherName: String, teacherProfileImageURL: String, subject: String,
+             studentInitials: String, startTime: Date, endTime: Date,
+             pricePaidByStudent: Double, currency: String, status: LessonStatus, meetingLink: String?) {
+            
+            self.id = id
+            self.userId = userId
+            self.teacherId = teacherId
+            self.timeSlotId = timeSlotId
+            self.teacherName = teacherName
+            self.teacherProfileImageURL = teacherProfileImageURL
+            self.subject = subject
+            self.studentInitials = studentInitials
+            self.startTime = startTime
+            self.endTime = endTime
+            self.pricePaidByStudent = pricePaidByStudent
+            self.currency = currency
+            self.status = status
+            self.meetingLink = meetingLink
+        }
+    
 }
