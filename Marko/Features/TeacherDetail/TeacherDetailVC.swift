@@ -179,11 +179,19 @@ class TeacherDetailVC: UIViewController {
         
         if vm.availableTimeSlots.isEmpty {
             
-            let noSlotsLabel = UILabel()
-            noSlotsLabel.text = "No available slots for this date."
-            noSlotsLabel.textColor = .secondaryLabel
-            noSlotsLabel.textAlignment = .center
-            timeSlotsStack.addArrangedSubview(noSlotsLabel)
+            let emptyState = EmptyState()
+    
+            timeSlotsStack.addArrangedSubview(emptyState)
+            
+            emptyState.configure(image: "calendar.badge.minus", mainLabel: "No slots this day", subtitleLabel: "Sorry")
+            
+            print("EmptyState is triggered")
+            
+//            let noSlotsLabel = UILabel()
+//            noSlotsLabel.text = "No available slots for this date."
+//            noSlotsLabel.textColor = .secondaryLabel
+//            noSlotsLabel.textAlignment = .center
+//            timeSlotsStack.addArrangedSubview(noSlotsLabel)
         } else {
             for slot in vm.availableTimeSlots {
                 let bookButton = UIButton(type: .system)
