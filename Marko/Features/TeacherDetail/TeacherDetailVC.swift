@@ -178,12 +178,12 @@ class TeacherDetailVC: UIViewController {
         timeSlotsStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
         
         if vm.availableTimeSlots.isEmpty {
-            
+
             let emptyState = EmptyState()
-    
+
             timeSlotsStack.addArrangedSubview(emptyState)
-            
-            emptyState.configure(image: "calendar.badge.minus", mainLabel: "No slots this day", subtitleLabel: "Sorry")
+
+            emptyState.configure(image: "no_date", mainLabel: "No lessons", subtitleLabel: "Please buy some")
             
             print("EmptyState is triggered")
             
