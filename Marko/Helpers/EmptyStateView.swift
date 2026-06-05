@@ -82,7 +82,7 @@ class EmptyState: UIView {
             subtitleLabel.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 20),
             subtitleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 10),
             subtitleLabel.heightAnchor.constraint(equalToConstant: 100),
-            subtitleLabel.widthAnchor.constraint(equalToConstant: 50)
+            subtitleLabel.widthAnchor.constraint(equalToConstant: 200)
         
         ])
         
@@ -90,10 +90,8 @@ class EmptyState: UIView {
     }
     
     func configure(image: String, mainLabel: String, subtitleLabel: String) {
-        
-        imageEmpty.clearsContextBeforeDrawing = true
-        
-        imageEmpty.image = UIImage(systemName: image)
+                
+        imageEmpty.image = UIImage(named: image)
         self.mainLabel.text = mainLabel
         self.subtitleLabel.text = subtitleLabel
         
