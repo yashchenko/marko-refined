@@ -139,13 +139,26 @@ class LessonsVC: UIViewController {
         if vm.hasLessons {
             
             collectionView.backgroundView = nil
+
             
         } else {
             
-            collectionView.backgroundView = emptyStateLabel
+            //collectionView.backgroundView = emptyStateLabel
+            
+            let emptyState = EmptyState()
+            
+            collectionView.backgroundView = emptyState
+            
+        //    view.addSubview(emptyState)
+            
+        
+            
+            emptyState.configure(image: "no_date", mainLabel: "No lessons yet", subtitleLabel: "")
+            
         }
         
         collectionView.reloadData()
+
     }
     
     private func bindViewModel() {

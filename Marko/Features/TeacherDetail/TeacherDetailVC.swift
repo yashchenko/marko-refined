@@ -179,19 +179,20 @@ class TeacherDetailVC: UIViewController {
         
         if vm.availableTimeSlots.isEmpty {
 
-            let emptyState = EmptyState()
-
-            timeSlotsStack.addArrangedSubview(emptyState)
-
-            emptyState.configure(image: "no_date", mainLabel: "No lessons", subtitleLabel: "Please buy some")
+//            let emptyState = EmptyState()
+//
+//            timeSlotsStack.addArrangedSubview(emptyState)
+//
+//            emptyState.configure(image: "no_date", mainLabel: "No lessons", subtitleLabel: "Please buy some")
             
             print("EmptyState is triggered")
             
-//            let noSlotsLabel = UILabel()
-//            noSlotsLabel.text = "No available slots for this date."
-//            noSlotsLabel.textColor = .secondaryLabel
-//            noSlotsLabel.textAlignment = .center
-//            timeSlotsStack.addArrangedSubview(noSlotsLabel)
+            let noSlotsLabel = UILabel()
+            noSlotsLabel.text = "No available slots for this date."
+            noSlotsLabel.textColor = .secondaryLabel
+            noSlotsLabel.textAlignment = .center
+            timeSlotsStack.addArrangedSubview(noSlotsLabel)
+            
         } else {
             for slot in vm.availableTimeSlots {
                 let bookButton = UIButton(type: .system)
