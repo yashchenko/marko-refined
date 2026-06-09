@@ -15,7 +15,7 @@ class EmptyState: UIView {
     
     let imageEmpty: UIImageView = {
         let image = UIImageView()
-        
+        image.contentMode = .scaleAspectFit
         
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
@@ -24,8 +24,10 @@ class EmptyState: UIView {
     
     let mainLabel: UILabel = {
         let label = UILabel()
-        
-        
+        label.font = .systemFont(ofSize: 22, weight: .regular)
+        label.textColor = .label
+        label.textAlignment = .center
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -65,10 +67,10 @@ class EmptyState: UIView {
         
         NSLayoutConstraint.activate([
             
-            imageEmpty.heightAnchor.constraint(equalToConstant: 100),
-            imageEmpty.widthAnchor.constraint(equalToConstant: 100),
+            imageEmpty.heightAnchor.constraint(equalToConstant: 150),
+            imageEmpty.widthAnchor.constraint(equalToConstant: 150),
             
-            imageEmpty.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            imageEmpty.topAnchor.constraint(equalTo: topAnchor, constant: 40),
             imageEmpty.centerXAnchor.constraint(equalTo: centerXAnchor)
         
         ])
@@ -76,8 +78,9 @@ class EmptyState: UIView {
         NSLayoutConstraint.activate([
         
             mainLabel.topAnchor.constraint(equalTo: imageEmpty.bottomAnchor, constant: 10),
-            mainLabel.heightAnchor.constraint(equalToConstant: 100),
-            mainLabel.widthAnchor.constraint(equalToConstant: 50),
+           
+            mainLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
+            mainLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
             
             subtitleLabel.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 20),
             subtitleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 10),
