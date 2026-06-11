@@ -48,15 +48,12 @@ class LessonsVC: UIViewController {
         return indicator
     }()
     
-    // empty state (when no buyed lesson)
-    private let emptyStateLabel: UILabel = {
-        let label = UILabel()
-        label.text = "No lessons yet"
-        label.textAlignment = .center
-        label.textColor = .secondaryLabel
-        label.font = .systemFont(ofSize: 18, weight: .medium)
-        label.numberOfLines = 0
-        return label
+    private lazy var emptyState: EmptyState = {
+        let empty = EmptyState()
+        empty.isHidden = true
+        empty.translatesAutoresizingMaskIntoConstraints = false
+        return empty
+        
     }()
     
     lazy private var profileButton: UIButton = {
@@ -110,7 +107,8 @@ class LessonsVC: UIViewController {
         view.addSubviews(views: [
         
             collectionView,
-            activityIndicator
+            activityIndicator,
+            emptyState
         
         ])
     }
@@ -132,28 +130,24 @@ class LessonsVC: UIViewController {
         activityIndicator.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
+        
+        NSLayoutConstraint.activate([
+            emptyState.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            emptyState.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            emptyState.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        ])
     }
     
     private func updateUI() {
         
         if vm.hasLessons {
             
-            collectionView.backgroundView = nil
-
+            emptyState.isHidden = true
             
         } else {
             
-            //collectionView.backgroundView = emptyStateLabel
-            
-            let emptyState = EmptyState()
-            
-            collectionView.backgroundView = emptyState
-            
-        //    view.addSubview(emptyState)
-            
-        
-            
-            emptyState.configure(image: "no_date", mainLabel: "No lessons yet", subtitleLabel: "")
+            emptyState.isHidden = false
+            emptyState.configure(image: "no_date", mainLabel: "No lessons yet")
             
         }
         
@@ -258,14 +252,7 @@ extension LessonsVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         guard let lesson = vm.lesson(the: indexPath.item) else { return }
-        
-        // TODO: Навигация к деталям урока или Join Lesson
 
         print("Selected lesson: \(lesson.teacherName)")
-        
-        
-        // TODO: MAR-175 add subject in Lesson
-        // print("Selected lesson: \(lesson.teacherName) - \(lesson.subject)")
-
     }
 }
