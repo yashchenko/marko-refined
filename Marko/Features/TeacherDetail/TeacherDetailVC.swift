@@ -9,6 +9,7 @@ import UIKit
 import FSCalendar
 import SnapKit
 import PassKit
+import UserNotifications
 
 class TeacherDetailVC: UIViewController {
     
@@ -287,16 +288,105 @@ class TeacherDetailVC: UIViewController {
         
         vm.bookSlot(slot) { [weak self] result in
             DispatchQueue.main.async {
+                
+                guard let self = self else { return }
+                
                 switch result {
                 case .success:
-                    self?.showAlert(title: "Success! 🎉", message: "Lesson booked successfully.")
+                    
+                    let alert = CustomAlertVC(title: <#T##String#>, message: <#T##String#>, confirm: <#T##String#>, cancel: <#T##String?#>, didCancel: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>, didOK: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>)
+                    
+                    
+//                    let alert = UIAlertController(title: "Success! 🎉", message: "Lesson booked successfully.", preferredStyle: .alert)
+//                    alert.addAction(UIAlertAction(title: "Lorem", style: .default, handler: { _ in
+//                        NotificationManager.shared.requestPermission(in: self) { same in
+//                            if same {
+//
+//                                NotificationManager.shared.scheduleLessonReminder(lessonID: slot.id, teacherName: self.vm.teacher.name, startTime: slot.startTime)
+//                            }
+//                        }
+//
+//                    }))
+                    
+                    
+                    
+                    
+//                    self?.showAlert(title: "Success! 🎉", message: "Lesson booked successfully.")
                 case .failure(let error):
                     self?.showAlert(title: "Booking Failed", message: error.localizedDescription)
                 }
             }
         }
-        
     }
+//
+//    private func performDatabaseBooking(for slot: TimeSlot) {
+//
+//        vm.bookSlot(slot) { [weak self] result in
+//
+//            DispatchQueue.main.async {
+//
+//                guard let self = self else {
+//                    return
+//                }
+//
+//                switch result {
+//
+//                case .success:
+//
+//                    // Урок успешно куплен!
+//                    // Показываем алерт успеха.
+//                    let alert = UIAlertController(
+//                        title: "Success! 🎉",
+//                        message: "Lesson booked successfully.",
+//                        preferredStyle: .alert
+//                    )
+//
+//                    alert.addAction(
+//                        UIAlertAction(
+//                            title: "OK",
+//                            style: .default,
+//                            handler: { _ in
+//
+//                                // ❗️ ВОТ НАШ НОВЫЙ КОД:
+//                                // Сразу после закрытия алерта об успехе,
+//                                // спрашиваем права на пуши
+//                                NotificationManager.shared
+//                                    .requestPermissionWithSoftPrompt(in: self) { granted in
+//
+//                                        if granted {
+//
+//                                            // Юзер разрешил!
+//                                            // Ставим будильник.
+//
+//                                            // ID урока у нас пока нет
+//                                            // (он генерится в Firebase),
+//                                            // поэтому используем slot.id
+//                                            // как уникальный идентификатор пуша.
+//                                            NotificationManager.shared.scheduleLessonReminder(
+//                                                lessonId: slot.id,
+//                                                teacherName: self.vm.teacher.name,
+//                                                startTime: slot.startTime
+//                                            )
+//                                        }
+//                                    }
+//                            }
+//                        )
+//                    )
+//
+//                    self.present(alert, animated: true)
+//
+//                case .failure(let error):
+//
+//                    self.showAlert(
+//                        title: "Booking Failed",
+//                        message: error.localizedDescription
+//                    )
+//                }
+//            }
+//        }
+//    }
+//    ```
+
     
     private func showAlert(title: String, message: String) {
         
