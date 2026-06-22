@@ -9,8 +9,10 @@
 /* Begin PBXBuildFile section */
 		55802F4C33A1613321946D19 /* Pods_Marko.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C4DDAE0B06C70BEDE03528E /* Pods_Marko.framework */; };
 		FA051B7B2F3B698E0076EF95 /* LessonsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA051B7A2F3B698E0076EF95 /* LessonsVC.swift */; };
+		FA05A3172FE3511800868F24 /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA05A3162FE3511800868F24 /* ChatModel.swift */; };
 		FA12184F2FDB2AB20084CBB7 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12184E2FDB2AB20084CBB7 /* NotificationManager.swift */; };
 		FA278F1B2F9B2E70002A85B2 /* AlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA278F1A2F9B2E70002A85B2 /* AlertVC.swift */; };
+		FA2892432FE8C5C20013E73A /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2892422FE8C5C20013E73A /* ChatMessage.swift */; };
 		FA2C7D832F2DC5EA004E919D /* LessonsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C7D822F2DC5EA004E919D /* LessonsRepository.swift */; };
 		FA3097512FA8E14500845D88 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3097502FA8E14500845D88 /* ProfileCoordinator.swift */; };
 		FA30CE622E5530FD0053783F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA30CE612E5530FD0053783F /* AppDelegate.swift */; };
@@ -60,8 +62,10 @@
 		345AB3BF79EDD55407A3ADA8 /* Pods-Marko.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Marko.debug.xcconfig"; path = "Target Support Files/Pods-Marko/Pods-Marko.debug.xcconfig"; sourceTree = "<group>"; };
 		8C4DDAE0B06C70BEDE03528E /* Pods_Marko.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Marko.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA051B7A2F3B698E0076EF95 /* LessonsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonsVC.swift; sourceTree = "<group>"; };
+		FA05A3162FE3511800868F24 /* ChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
 		FA12184E2FDB2AB20084CBB7 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		FA278F1A2F9B2E70002A85B2 /* AlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertVC.swift; sourceTree = "<group>"; };
+		FA2892422FE8C5C20013E73A /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		FA2C7D822F2DC5EA004E919D /* LessonsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonsRepository.swift; sourceTree = "<group>"; };
 		FA3097502FA8E14500845D88 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		FA30CE5E2E5530FD0053783F /* Marko.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Marko.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -251,6 +255,8 @@
 				FAFFF5062E66002A007B0644 /* TimeSlot.swift */,
 				FAFFF50C2E66029B007B0644 /* Lesson.swift */,
 				FAFFF50F2E6602B5007B0644 /* PayoutLedgerEntry.swift */,
+				FA05A3162FE3511800868F24 /* ChatModel.swift */,
+				FA2892422FE8C5C20013E73A /* ChatMessage.swift */,
 				FAFFF5092E660038007B0644 /* User.swift */,
 			);
 			path = Models;
@@ -447,6 +453,7 @@
 				FA932F9F2E99EAB4006B06BA /* StackView+Ext..swift in Sources */,
 				FA7024BC2F58F07600478BD6 /* Date+Ext.swift in Sources */,
 				FA58CE452FAA55030003CC09 /* CoreData.swift in Sources */,
+				FA2892432FE8C5C20013E73A /* ChatMessage.swift in Sources */,
 				FA30CE622E5530FD0053783F /* AppDelegate.swift in Sources */,
 				FAFE88E92E6C6E4700B1BD91 /* TeacherCollectionViewCell.swift in Sources */,
 				FAB38A002F3033EA00AD041A /* UIView+Ext.swift in Sources */,
@@ -477,6 +484,7 @@
 				FA399EC52F9419E60034923B /* PrivacyPolicyVC.swift in Sources */,
 				FA9D97B42E6A404C00A475E7 /* HomeViewModel.swift in Sources */,
 				FAFFF50A2E660038007B0644 /* User.swift in Sources */,
+				FA05A3172FE3511800868F24 /* ChatModel.swift in Sources */,
 				FAA284D82F3344C2008BDA2A /* LessonsVM.swift in Sources */,
 				FA7026022FCADFFC0076A6F8 /* EmptyStateView.swift in Sources */,
 				FA3097512FA8E14500845D88 /* ProfileCoordinator.swift in Sources */,
