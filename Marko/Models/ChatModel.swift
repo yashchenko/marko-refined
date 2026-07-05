@@ -46,4 +46,16 @@ struct ChatModel {
             
         }
     }
+    
+    init(id: String, studentId: String, teacherId: String, teacherName: String, studentName: String, lastMessageText: String?, lastMessageDate: Date?) {
+        
+        self.id = id
+        self.studentId = studentId
+        self.teacherId = teacherId
+        self.teacherName = teacherName
+        self.studentName = studentName
+        self.lastMessageText = lastMessageText
+        self.lastMessageDate = lastMessageDate
+        
+    }
 }
