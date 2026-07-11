@@ -33,6 +33,7 @@
 		FA7C2AE42E762F0700473D84 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7C2AE32E762F0700473D84 /* AuthService.swift */; };
 		FA840DBF2F1C4ADE004D850A /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA840DBE2F1C4ADE004D850A /* AuthCoordinator.swift */; };
 		FA840DC32F1C531A004D850A /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA840DC22F1C531A004D850A /* AuthViewModel.swift */; };
+		FA841AC52FFC64B40094ED38 /* ChatVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA841AC42FFC64B40094ED38 /* ChatVM.swift */; };
 		FA904C662E67549B008254C4 /* TeacherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA904C652E67549B008254C4 /* TeacherRepository.swift */; };
 		FA932F9F2E99EAB4006B06BA /* StackView+Ext..swift in Sources */ = {isa = PBXBuildFile; fileRef = FA932F9E2E99EAB4006B06BA /* StackView+Ext..swift */; };
 		FA9D97B42E6A404C00A475E7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9D97B32E6A404C00A475E7 /* HomeViewModel.swift */; };
@@ -89,6 +90,7 @@
 		FA7C2AE32E762F0700473D84 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		FA840DBE2F1C4ADE004D850A /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		FA840DC22F1C531A004D850A /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		FA841AC42FFC64B40094ED38 /* ChatVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVM.swift; sourceTree = "<group>"; };
 		FA904C652E67549B008254C4 /* TeacherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherRepository.swift; sourceTree = "<group>"; };
 		FA932F9E2E99EAB4006B06BA /* StackView+Ext..swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StackView+Ext..swift"; sourceTree = "<group>"; };
 		FA9D97B32E6A404C00A475E7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 		FA7A519E2E5E735E00CF9A31 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				FA841AC32FFC64790094ED38 /* Chat */,
 				FA840DC12F1C5309004D850A /* Auth */,
 				FA7A51A72E5E747200CF9A31 /* Account */,
 				FA7A51A62E5E746400CF9A31 /* Lessons */,
@@ -312,6 +315,14 @@
 				FAD5D9B52F1EBF1300DFE17F /* AuthVC.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		FA841AC32FFC64790094ED38 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				FA841AC42FFC64B40094ED38 /* ChatVM.swift */,
+			);
+			path = Chat;
 			sourceTree = "<group>";
 		};
 		FA932F9D2E99EA7A006B06BA /* Helpers */ = {
@@ -489,6 +500,7 @@
 				FA9D97B42E6A404C00A475E7 /* HomeViewModel.swift in Sources */,
 				FAFFF50A2E660038007B0644 /* User.swift in Sources */,
 				FA05A3172FE3511800868F24 /* ChatModel.swift in Sources */,
+				FA841AC52FFC64B40094ED38 /* ChatVM.swift in Sources */,
 				FAA284D82F3344C2008BDA2A /* LessonsVM.swift in Sources */,
 				FA7026022FCADFFC0076A6F8 /* EmptyStateView.swift in Sources */,
 				FA3097512FA8E14500845D88 /* ProfileCoordinator.swift in Sources */,
