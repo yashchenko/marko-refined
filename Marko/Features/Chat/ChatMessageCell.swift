@@ -10,7 +10,7 @@ import UIKit
 
 class ChatMessageCell: UITableViewCell {
     
-    let cellIdentofier = "cellID"
+    static let cellIdentofier = "cellID"
     
     // MARK: - UI Elements
     
@@ -36,6 +36,13 @@ class ChatMessageCell: UITableViewCell {
         
         backgroundColor = .clear
         selectionStyle = .none
+        
+        contentView.addSubview(bubble)
+        bubble.addSubview(messageLabel)
+        
+        messageLabel.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16))
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -44,11 +51,13 @@ class ChatMessageCell: UITableViewCell {
     
     func configure(message: ChatMessage, user: Bool) {
         
+        messageLabel.text = message.text
+        
         if user {
             bubble.backgroundColor = .systemBlue
             messageLabel.textColor = .white
             
-            bubble.snp.makeConstraints { make in
+            bubble.snp.remakeConstraints { make in
                 make.top.bottom.equalToSuperview().inset(8)
                 make.trailing.equalToSuperview().inset(16)
                 make.width.lessThanOrEqualToSuperview().multipliedBy(0.75)
@@ -57,28 +66,14 @@ class ChatMessageCell: UITableViewCell {
             
         } else {
             
+            bubble.backgroundColor = .systemGray5
+            messageLabel.textColor = .label
             
-            
-            
+            bubble.snp.remakeConstraints { make in
+                make.top.bottom.equalToSuperview().inset(8)
+                make.leading.equalToSuperview().inset(16)
+                make.width.lessThanOrEqualToSuperview().multipliedBy(0.75)
+            }
         }
-        
-        
-        
-        
-    }
-    
-    
-}
-
-
-extension ChatMessageCell: UITableViewDelegate, UITableViewDataSource {
-    
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
     }
 }
