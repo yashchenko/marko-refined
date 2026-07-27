@@ -51,6 +51,7 @@
 		FADA76CF2E74CAAF00775599 /* TeacherDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADA76CE2E74CAAF00775599 /* TeacherDetailVM.swift */; };
 		FADA76D32E74CC0100775599 /* TeacherDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADA76D22E74CC0100775599 /* TeacherDetailVC.swift */; };
 		FADC8CF92EADBDAD0056C94E /* TimeSlotRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADC8CF82EADBDAD0056C94E /* TimeSlotRepository.swift */; };
+		FAE580B3301520440069C0E9 /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE580B2301520440069C0E9 /* ChatVC.swift */; };
 		FAE8EBF22EFA11E9004FEB9B /* BookingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE8EBF12EFA11E9004FEB9B /* BookingRepository.swift */; };
 		FAFE88E92E6C6E4700B1BD91 /* TeacherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFE88E82E6C6E4700B1BD91 /* TeacherCollectionViewCell.swift */; };
 		FAFFF5042E66001C007B0644 /* Teacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFFF5032E66001C007B0644 /* Teacher.swift */; };
@@ -109,6 +110,7 @@
 		FADA76CE2E74CAAF00775599 /* TeacherDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherDetailVM.swift; sourceTree = "<group>"; };
 		FADA76D22E74CC0100775599 /* TeacherDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherDetailVC.swift; sourceTree = "<group>"; };
 		FADC8CF82EADBDAD0056C94E /* TimeSlotRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSlotRepository.swift; sourceTree = "<group>"; };
+		FAE580B2301520440069C0E9 /* ChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
 		FAE8EBF12EFA11E9004FEB9B /* BookingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingRepository.swift; sourceTree = "<group>"; };
 		FAFE88E82E6C6E4700B1BD91 /* TeacherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherCollectionViewCell.swift; sourceTree = "<group>"; };
 		FAFFF5032E66001C007B0644 /* Teacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teacher.swift; sourceTree = "<group>"; };
@@ -324,6 +326,7 @@
 			children = (
 				FA841AC42FFC64B40094ED38 /* ChatVM.swift */,
 				FA6D44473008FBF9008FF3DB /* ChatMessageCell.swift */,
+				FAE580B2301520440069C0E9 /* ChatVC.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -467,6 +470,7 @@
 			files = (
 				FADC8CF92EADBDAD0056C94E /* TimeSlotRepository.swift in Sources */,
 				FAE8EBF22EFA11E9004FEB9B /* BookingRepository.swift in Sources */,
+				FAE580B3301520440069C0E9 /* ChatVC.swift in Sources */,
 				FA932F9F2E99EAB4006B06BA /* StackView+Ext..swift in Sources */,
 				FA7024BC2F58F07600478BD6 /* Date+Ext.swift in Sources */,
 				FA58CE452FAA55030003CC09 /* CoreData.swift in Sources */,
