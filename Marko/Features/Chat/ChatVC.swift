@@ -12,7 +12,7 @@ class ChatVC: UIViewController {
     
     // MARK: - Properties
     
-    let vm: ChatVM
+    private let vm: ChatVM
     
     // link to bottom constraint for keybord control
     private var inputBottomConstraint: Constraint?
@@ -68,9 +68,148 @@ class ChatVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupUI()
+        setupKeyboardObservers()
+        bindVM()
+        
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        table.addGestureRecognizer(tap)
+        
+        vm.loadMessages()
+    }
+    
+    // MARK: - Setup
+    
+    func setupUI() {
+        
+        title = vm.chat.teacherName
+        view.backgroundColor = .systemBackground
+        
+        view.addSubviews(views: [
+            table,
+            inputContainer
+        ])
+        
+        inputContainer.addSubviews(views: [
+        
+            messageTextField,
+            sendButton
+        
+        ])
+        
+        
+        inputContainer.snp.makeConstraints { maker in
+            maker.leading.trailing.equalToSuperview()
+            
+            self.inputBottomConstraint = maker.bottom.equalTo(view.safeAreaLayoutGuide).constraint
+        }
+        
+        messageTextField.snp.makeConstraints { maker in
+            
+            maker.top.bottom.equalToSuperview().inset(10)
+            maker.leading.equalToSuperview().inset(16)
+        }
+        
+        sendButton.snp.makeConstraints { maker in
+            maker.centerY.equalTo(messageTextField)
+            maker.leading.equalTo(messageTextField.snp.trailing).offset(12)
+            maker.trailing.equalToSuperview().inset(16)
+            maker.width.height.equalTo(30)
+        }
+        
+        table.snp.makeConstraints { maker in
+            maker.top.leading.trailing.equalToSuperview()
+            maker.bottom.equalTo(inputContainer.snp.top)
+        }
+    }
+    
+    func bindVM() {
+        
+        vm.didUpdateMessages = { [weak self] in
+            
+            guard let self = self else { return }
+            
+            self.table.reloadData()
+            self.scrollToBottom(animated: true)
+            
+        }
+        
+        vm.didErrorOccur = { [weak self] someError in
+            
+            guard let self = self else { return }
+            
+            let alert = UIAlertController(title: "Error", message: someError, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(alert, animated: true)
+            
+        }
+        
+    }
+    
+    
+    // MARK: - Send message
     private func handleSend() {
         
+        guard let text = messageTextField.text, !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
         
+        vm.sendMessage(text: text)
+        messageTextField.text = ""
+    }
+    
+    @objc func dismissKeyboard() {
+        
+        view.endEditing(true)
+    }
+    
+    private func scrollToBottom(animated: Bool) {
+        
+        guard !vm.messages.isEmpty else { return }
+        let indexPath = IndexPath(row: vm.messages.count - 1, section: 0)
+        table.scrollToRow(at: indexPath, at: .bottom, animated: animated)
+        
+    }
+    
+    // MARK: - Keyboard Management
+    
+    func setupKeyboardObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    
+    @objc func keyboardWillShow (notification: NSNotification) {
+        
+        guard let keyboardFrane = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+        
+        let safeAreaBottom = view.safeAreaInsets.bottom
+        let keyboardHeight = keyboardFrane.height - safeAreaBottom
+        
+        inputBottomConstraint?.update(offset: -keyboardHeight)
+        
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+            self.scrollToBottom(animated: false)
+        }
+        
+        
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        
+        inputBottomConstraint?.update(offset: 0)
+        
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+        
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
 }
@@ -78,14 +217,17 @@ class ChatVC: UIViewController {
 
 extension ChatVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        vm.messages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ChatMessageCell.cellIdentofier, for: indexPath) as? ChatMessageCell else { return UITableViewCell() }
+        
+        let message = vm.messages[indexPath.row]
+        let isCurrentUser = message.senderID == vm.currentUserId
+        
+        cell.configure(message: message, user: isCurrentUser)
+        
+        return cell
     }
-    
-    
-    
-    
 }
