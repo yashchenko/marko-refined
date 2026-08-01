@@ -27,6 +27,8 @@ class LessonsVM {
     
     var didProfileTapped: (() -> ())?
     
+    var routeToNavigator: ((String, String) -> Void)?
+    
     // MARK: - Init
     
     init(lessonRepo: LessonsRepository = LessonsRepository()) {
@@ -113,6 +115,11 @@ class LessonsVM {
     var hasLessons: Bool {
         
         return !lessonsArray.isEmpty
+    }
+    
+    func messageDidTapped(lesson: Lesson) {
+        
+        routeToNavigator?(lesson.teacherId, lesson.teacherName)
     }
 }
 

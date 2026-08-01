@@ -18,6 +18,9 @@ class HomeCoordinator: Coordinator {
         let repo = TeacherRepository()
         let homeVM = HomeViewModel(teacherDatabase: repo)
         let homeVC = HomeVC(vm: homeVM)
+        let lessonVM: LessonsVM?
+        
+        
             
         homeVM.didSelaectTeacher = { [weak self] teacher in
             

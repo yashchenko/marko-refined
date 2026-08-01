@@ -15,6 +15,9 @@ class LessonCell: UICollectionViewCell {
     
     static let reuseIdentifier = "LessonCell"
     
+    var messageButtonDidTapped: (() -> Void)?
+    
+    
     // MARK: - Date Formatter
     
     private static let dateFormatter: DateFormatter = {
@@ -116,6 +119,17 @@ class LessonCell: UICollectionViewCell {
         button.layer.shadowOffset = CGSize(width: 0, height: 2)
         button.layer.shadowRadius = 4
         
+        return button
+    }()
+    
+    lazy var messageButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "bubble.right.fill"), for: .normal) // or "message.circle.fill"
+        
+        
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.messageButtonDidTapped?()
+        }), for: .touchUpInside)
         return button
     }()
     
@@ -316,4 +330,5 @@ class LessonCell: UICollectionViewCell {
         joinButton.backgroundColor = .systemBlue
         joinButton.setTitle("Join Lesson", for: .normal)
     }
+    
 }
