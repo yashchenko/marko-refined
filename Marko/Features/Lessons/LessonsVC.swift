@@ -221,6 +221,12 @@ extension LessonsVC: UICollectionViewDataSource {
         
         if let lesson = vm.lesson(the: indexPath.item) {
             cell.configure(lesson: lesson)
+            
+            cell.messageButtonDidTapped = {
+                
+                self.vm.messageDidTapped(lesson: lesson)
+                
+            }
         }
         
         return cell
