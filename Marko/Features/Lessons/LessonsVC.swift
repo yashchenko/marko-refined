@@ -222,9 +222,9 @@ extension LessonsVC: UICollectionViewDataSource {
         if let lesson = vm.lesson(the: indexPath.item) {
             cell.configure(lesson: lesson)
             
-            cell.messageButtonDidTapped = {
+            cell.messageButtonDidTapped = { [weak self] in
                 
-                self.vm.messageDidTapped(lesson: lesson)
+                self?.vm.messageDidTapped(lesson: lesson)
                 
             }
         }
