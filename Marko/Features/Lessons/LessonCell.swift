@@ -123,9 +123,10 @@ class LessonCell: UICollectionViewCell {
     }()
     
     lazy var messageButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "bubble.right.fill"), for: .normal) // or "message.circle.fill"
         
+        let button = UIButton(type: .system)
+        
+        button.setImage(UIImage(systemName: "message.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 24, weight: .regular)), for: .normal)
         
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.messageButtonDidTapped?()
@@ -160,7 +161,8 @@ class LessonCell: UICollectionViewCell {
             calendarIconImageView,
             dateTimeLabel,
             statusBadge,
-            joinButton
+            joinButton,
+            messageButton
             
             
         ])
@@ -180,7 +182,7 @@ class LessonCell: UICollectionViewCell {
         teacherNameLabel.snp.makeConstraints { make in
             make.top.equalTo(teacherAvatar.snp.top).offset(4)
             make.leading.equalTo(teacherAvatar.snp.trailing).offset(12)
-            make.trailing.equalToSuperview().inset(16)
+            make.trailing.equalTo(messageButton.snp.leading).offset(-8)
         }
         
         
@@ -217,6 +219,11 @@ class LessonCell: UICollectionViewCell {
             make.leading.trailing.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().inset(16)
             make.height.equalTo(48)  // Удобная высота для кнопки
+        }
+        
+        messageButton.snp.makeConstraints { maker in
+            maker.trailing.top.equalToSuperview().inset(16)
+            maker.size.equalTo(40)
         }
     }
     

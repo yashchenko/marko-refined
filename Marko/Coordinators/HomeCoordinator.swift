@@ -9,6 +9,7 @@ class HomeCoordinator: Coordinator {
     
     var navigation: UINavigationController
     var childCoordinators = [Coordinator]()
+    private var activeChatRepo: ChatRepo?
     
     init(nav: UINavigationController) {
         self.navigation = nav
@@ -18,8 +19,6 @@ class HomeCoordinator: Coordinator {
         let repo = TeacherRepository()
         let homeVM = HomeViewModel(teacherDatabase: repo)
         let homeVC = HomeVC(vm: homeVM)
-        let lessonVM: LessonsVM?
-        
         
             
         homeVM.didSelaectTeacher = { [weak self] teacher in
@@ -96,5 +95,42 @@ class HomeCoordinator: Coordinator {
             profileCoordinator.start()
           
         }
+        
+        myLessonsVM.routeToNavigator = { [weak self] id, name in
+            
+            self?.showMessenger(id: id, name: name)
+        }
+    }
+    
+    func showMessenger(id: String, name: String) {
+        let messenferRepo = ChatRepo()
+        self.activeChatRepo = messenferRepo
+        
+        let dummyTeacher = Teacher(id: id, name: name, headline: "", profileImageURL: "", rating: 0, reviewCount: 0, hourlyRate: 0, fullDescription: "", contactURL: "", subject: "")
+        
+        messenferRepo.getOrCreateChat(teacher: dummyTeacher) { result in
+            
+            DispatchQueue.main.async {
+                
+                switch result {
+                
+                case .success(let chat):
+                    
+                    let chatVM = ChatVM(chat: chat)
+                    let chatVC = ChatVC(chatVM: chatVM)
+                    
+                    self.navigation.pushViewController(chatVC, animated: true)
+                    //self.navigation.present(chatVC, animated: true)
+                
+                case .failure(let error):
+                    
+                    print(error.localizedDescription)
+                
+                }
+                self.activeChatRepo = nil
+            }
+            
+        }
+    
     }
 }
