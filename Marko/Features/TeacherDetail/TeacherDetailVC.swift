@@ -203,7 +203,7 @@ class TeacherDetailVC: UIViewController {
                 let startTime = formatter.string(from: slot.startTime)
                 let endTime = formatter.string(from: slot.endTime)
                 
-                bookButton.setTitle("Book \(startTime) - \(endTime) • \(vm.teacher.hourlyRate) UAH", for: .normal)
+                bookButton.setTitle("Book \(startTime) - \(endTime) • \(vm.teacher.sessionPrice) UAH", for: .normal)
                 bookButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
                 
                 bookButton.backgroundColor = .systemBlue
@@ -248,8 +248,7 @@ class TeacherDetailVC: UIViewController {
         request.countryCode = "UA"
         request.currencyCode = "UAH"
         
-        let amount = NSDecimalNumber(value: vm.teacher.hourlyRate)
-        
+        let amount = NSDecimalNumber(value: vm.teacher.sessionPrice)
         let item = PKPaymentSummaryItem(label: "Lesson with \(vm.teacher.name)", amount: amount)
         request.paymentSummaryItems = [item]
         

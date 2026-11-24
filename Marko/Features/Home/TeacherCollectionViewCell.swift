@@ -165,8 +165,7 @@ class TeacherCollectionViewCell: UICollectionViewCell {
         nameLabel.text = teacher.name
         headlineLabel.text = teacher.subject
         ratingLabel.text = "\(teacher.rating) (\(teacher.reviewCount) reviews)"
-        priceLabel.text = "$\(teacher.hourlyRate)/hr"
-        
+        priceLabel.text = "\(teacher.sessionPrice) UAH / 30 min"
         let url = URL(string: teacher.profileImageURL)
         let placeholder = UIImage(systemName: "person.crop.rectangle.stack")
         teacherImageView.kf.setImage(with: url, placeholder: placeholder)
