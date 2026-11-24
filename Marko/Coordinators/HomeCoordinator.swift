@@ -106,7 +106,7 @@ class HomeCoordinator: Coordinator {
         let messenferRepo = ChatRepo()
         self.activeChatRepo = messenferRepo
         
-        let dummyTeacher = Teacher(id: id, name: name, headline: "", profileImageURL: "", rating: 0, reviewCount: 0, hourlyRate: 0, fullDescription: "", contactURL: "", subject: "")
+        let dummyTeacher = Teacher(id: id, name: name, headline: "", profileImageURL: "", rating: 0, reviewCount: 0, sessionPrice: 0, fullDescription: "", contactURL: "", subject: "")
         
         messenferRepo.getOrCreateChat(teacher: dummyTeacher) { result in
             

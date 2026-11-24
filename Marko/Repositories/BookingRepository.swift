@@ -45,7 +45,7 @@ class BookingRepository {
             // B. Financial Calculation (B2B Model / UAH)
             
             // Renaming for semantic hygiene:
-            let lessonPrice = Double(teacher.hourlyRate)
+            let lessonPrice = Double(teacher.sessionPrice)
             let grossAmount = lessonPrice
             
             // Rates configuration (Hardcoded for MVP, usually comes from Config)

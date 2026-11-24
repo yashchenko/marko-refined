@@ -14,7 +14,7 @@ struct Teacher {
     let profileImageURL: String
     let rating: Double
     let reviewCount: Int
-    let hourlyRate: Int
+    let sessionPrice: Int
     let fullDescription: String
     let contactURL: String?
     let subject: String
